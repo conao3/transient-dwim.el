@@ -31,6 +31,7 @@
 
 ;;; Code:
 
+(require 'subr-x)
 (require 'transient)
 
 (defgroup transient-dwim nil
@@ -61,7 +62,25 @@
 
 ;;; Main
 
-(define-transient-command transient-dwim-major-mode ()
+(defun transient-dwim-major-mode ()
+  "Invoke a mode-specific transient."
+  (interactive)
+  (let ((mode major-mode)
+        modelist find-mode)
+    (while mode
+      (push mode modelist)
+      (setq mode (get mode 'derived-mode-parent)))
+    (setq find-mode
+          (cl-find-if
+           (lambda (elm)
+             (fboundp (intern (format "transient-dwim-%s" elm))))
+           (nreverse modelist)))
+    (if find-mode
+        (call-interactively (intern (format "transient-dwim-%s" find-mode)))
+      (error "Function transient-dwim-{%s} is not defined"
+             (string-join (mapcar 'symbol-name modelist) ", ")))))
+
+(define-transient-command transient-dwim-dired-mode ()
   "Invoke a major-mode spesific transient"
   ["Mark"
    :if-derived dired-mode
