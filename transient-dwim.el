@@ -5,7 +5,7 @@
 ;; Author: Naoya Yamashita <conao3@gmail.com>
 ;; Version: 0.0.1
 ;; Keywords: tools
-;; Transient-Dwim-Requires: ((emacs "25.1"))
+;; Transient-Dwim-Requires: ((emacs "25.1") (transient "0.1.0"))
 ;; URL: https://github.com/conao3/transient-dwim.el
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -28,11 +28,41 @@
 
 ;;; Code:
 
+(require 'transient)
+
 (defgroup transient-dwim nil
   "Useful preset transient commands."
   :prefix "transient-dwim-"
   :group 'tools
   :link '(url-link :tag "Github" "https://github.com/conao3/transient-dwim.el"))
+
+
+;;; Main
+
+(define-transient-command transient-dwim-major-mode ()
+  "Invoke a major-mode spesific transient"
+  ["Dired-mode"
+   :if-derived dired-mode
+   ["Mark"
+    [("m"   "Mark this"       dired-mark)
+     ("s"   "Mark all"        dired-mark-subdir-files)
+     ("*"   "Executables"     dired-mark-executables)
+     ("/"   "Directories"     dired-mark-directories)
+     ("@"   "Symlinks"        dired-mark-symlinks)
+     ("%"   "Regexp..."       dired-mark-files-regexp)
+     ("c"   "Change..."       dired-change-marks)]
+    [("u"   "Unmark this"     dired-unmark)
+     ("U"   "Unmark all"      dired-unmark-all-marks)]
+    [("DEL" "Unmark backward" dired-unmark-backward)
+     ("C-n" "Next mark"       dired-next-marked-file)
+     ("C-p" "Prev mark"       dired-prev-marked-file)
+     ("t"   "Toggle"          dired-toggle-marks)]]])
+
+;;;###autoload (autoload 'transient-dwim-dispatch "transient-dwim" nil t)
+(define-transient-command transient-dwim-dispatch ()
+  "Invoke a transient-dwim command."
+  ["Transient dwim"
+   ("m" "Major mode" transient-dwim-major-mode)])
 
 (provide 'transient-dwim)
 
