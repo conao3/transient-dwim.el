@@ -3,7 +3,7 @@
 (source gnu)
 (source melpa)
 
-(package-file "dired-git.el")
+(package-file "transient-dwim.el")
 
 (development
  (depends-on "buttercup"))
