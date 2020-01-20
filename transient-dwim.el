@@ -161,7 +161,7 @@ Magit:
   "Invoke a transient-dwim command."
   ["Transient dwim"
    [("M" "Major mode" transient-dwim-major-mode)]
-   [("=" "Magit"      transient-dwim-magit)]])
+   [("M-=" "Magit"    transient-dwim-magit)]])
 
 (provide 'transient-dwim)
 
