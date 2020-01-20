@@ -25,6 +25,9 @@
 
 ;; Useful preset transient commands
 
+;; To Use this package, simply add this to your init.el:
+;;   (define-key global-map (kbd "M-=") 'transient-dwim-dispatch)
+
 
 ;;; Code:
 
@@ -37,32 +40,95 @@
   :link '(url-link :tag "Github" "https://github.com/conao3/transient-dwim.el"))
 
 
+;;; Functions
+
+;;; Magit
+(defun transient-dwim-magit-commit-all ()
+  "Commit via magit with --all argument."
+  (interactive)
+  (magit-commit-create '("--all")))
+
+(defun transient-dwim-magit-amend-all ()
+  "Commit via magit with --all argument."
+  (interactive)
+  (magit-commit-amend '("--all")))
+
+(defun transient-dwim-magit-extend-all ()
+  "Commit via magit with --all argument."
+  (interactive)
+  (magit-commit-extend '("--all")))
+
+
 ;;; Main
 
 (define-transient-command transient-dwim-major-mode ()
   "Invoke a major-mode spesific transient"
-  ["Dired-mode"
+  ["Mark"
    :if-derived dired-mode
-   ["Mark"
-    [("m"   "Mark this"       dired-mark)
-     ("s"   "Mark all"        dired-mark-subdir-files)
-     ("*"   "Executables"     dired-mark-executables)
-     ("/"   "Directories"     dired-mark-directories)
-     ("@"   "Symlinks"        dired-mark-symlinks)
-     ("%"   "Regexp..."       dired-mark-files-regexp)
-     ("c"   "Change..."       dired-change-marks)]
-    [("u"   "Unmark this"     dired-unmark)
-     ("U"   "Unmark all"      dired-unmark-all-marks)]
-    [("DEL" "Unmark backward" dired-unmark-backward)
-     ("C-n" "Next mark"       dired-next-marked-file)
-     ("C-p" "Prev mark"       dired-prev-marked-file)
-     ("t"   "Toggle"          dired-toggle-marks)]]])
+   [("m"   "Mark this"       dired-mark)
+    ("s"   "Mark all"        dired-mark-subdir-files)
+    ("*"   "Executables"     dired-mark-executables)
+    ("/"   "Directories"     dired-mark-directories)
+    ("@"   "Symlinks"        dired-mark-symlinks)
+    ("%"   "Regexp..."       dired-mark-files-regexp)
+    ("c"   "Change..."       dired-change-marks)]
+   [("u"   "Unmark this"     dired-unmark)
+    ("U"   "Unmark all"      dired-unmark-all-marks)]
+   [("DEL" "Unmark backward" dired-unmark-backward)
+    ("C-n" "Next mark"       dired-next-marked-file)
+    ("C-p" "Prev mark"       dired-prev-marked-file)
+    ("t" "  Toggle"          dired-toggle-marks)]])
+
+(define-transient-command transient-dwim-magit ()
+  "Invoke a Magit spesific transient.
+This transient is based `magit-commit' and `magit-status'.
+
+Magit:
+  Package: magit (MELPA)
+  URL: https://github.com/magit/magit"
+  ["Arguments"
+   ("-a" "Stage all modified and deleted files"   ("-a" "--all"))
+   ("-e" "Allow empty commit"                     "--allow-empty")
+   ("-v" "Show diff of changes to be committed"   ("-v" "--verbose"))
+   ("-n" "Disable hooks"                          ("-n" "--no-verify"))
+   ("-R" "Claim authorship and reset author date" "--reset-author")
+   (magit:--author :description "Override the author")
+   (7 "-D" "Override the author date" "--date=" transient-read-date)
+   ("-s" "Add Signed-off-by line"                 ("-s" "--signoff"))
+   (5 magit:--gpg-sign)
+   (magit-commit:--reuse-message)]
+  [["Commit"
+    ("c" "Commit"     magit-commit-create)
+    ("=" "Commit -a"  transient-dwim-magit-commit-all)
+    ("e" "Extend"     magit-commit-extend)
+    ("E" "Extend -a"  transient-dwim-magit-extend-all)
+    ("a" "Amend"      magit-commit-amend)
+    ("A" "Amend -a"   transient-dwim-magit-amend-all)
+    ("w" "Reword"     magit-commit-reword)
+    (6 "n" "Reshelve" magit-commit-reshelve)]
+   ["Edit"
+    ("F" "fixup"      magit-commit-instant-fixup)
+    ("S" "squash"     magit-commit-instant-squash)]
+   ["Misc"
+    ("s" "Status"     magit-status)
+    ("b" "Branch"     magit-branch)
+    ("C" "Clone"      magit-clone)
+    ("d" "Diff"       magit-diff-working-tree)
+    ("f" "Fetch"      magit-fetch)
+    ("F" "Pull"       magit-pull)]
+   [""
+    ("m" "Merge"      magit-merge)
+    ("r" "Rebase"     magit-rebase)
+    ("l" "Log"        magit-log)
+    ("X" "Reset"      magit-reset)
+    ("z" "Stash"      magit-stash)]])
 
 ;;;###autoload (autoload 'transient-dwim-dispatch "transient-dwim" nil t)
 (define-transient-command transient-dwim-dispatch ()
   "Invoke a transient-dwim command."
   ["Transient dwim"
-   ("m" "Major mode" transient-dwim-major-mode)])
+   [("M" "Major mode" transient-dwim-major-mode)]
+   [("=" "Magit"      transient-dwim-magit)]])
 
 (provide 'transient-dwim)
 
