@@ -31,6 +31,7 @@
 
 ;;; Code:
 
+(require 'seq)
 (require 'subr-x)
 (require 'transient)
 
@@ -42,6 +43,19 @@
 
 
 ;;; Functions
+
+(eval
+ (eval-when-compile
+   `(progn
+      ,@(mapcan
+         (lambda (elm)
+           (seq-let (pkg fns) elm
+             (mapcar
+              (lambda (elm*)
+                `(declare-function ,elm* ,(symbol-name pkg)))
+              fns)))
+         '((magit
+            (magit-commit-create magit-commit-amend magit-commit-extend)))))))
 
 ;;; Magit
 (defun transient-dwim-magit-commit-all ()
