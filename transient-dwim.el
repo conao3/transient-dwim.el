@@ -96,21 +96,35 @@
 
 (define-transient-command transient-dwim-dired-mode ()
   "Invoke a major-mode spesific transient"
-  ["Mark"
-   :if-derived dired-mode
-   [("m"   "Mark this"       dired-mark)
+  [["Mark"
+    ("m"   "Mark this"       dired-mark)
     ("s"   "Mark all"        dired-mark-subdir-files)
     ("*"   "Executables"     dired-mark-executables)
     ("/"   "Directories"     dired-mark-directories)
     ("@"   "Symlinks"        dired-mark-symlinks)
     ("%"   "Regexp..."       dired-mark-files-regexp)
     ("c"   "Change..."       dired-change-marks)]
-   [("u"   "Unmark this"     dired-unmark)
-    ("U"   "Unmark all"      dired-unmark-all-marks)]
-   [("DEL" "Unmark backward" dired-unmark-backward)
+   ["Unmark/Move"
+    ("u" "  Unmark this"     dired-unmark)
+    ("U" "  Unmark all"      dired-unmark-all-marks)
+    ("DEL" "Unmark backward" dired-unmark-backward)
     ("C-n" "Next mark"       dired-next-marked-file)
     ("C-p" "Prev mark"       dired-prev-marked-file)
-    ("t" "  Toggle"          dired-toggle-marks)]])
+    ("t" "  Toggle"          dired-toggle-marks)]
+   ["Git"
+    ("b" "Branch"  ignore)
+    ("S" "Stage"   ignore)
+    ("U" "Unstage" ignore)
+    ("z" "Stash"   ignore)
+    ("X" "Reset"   ignore)
+    ("c" "Commit"  ignore)
+    ("t" "Tag"     ignore)]
+   [""
+     ("f" "Fetch"   ignore)
+     ("F" "Pull"    ignore)
+     ("m" "Merge"   ignore)
+     ("P" "Push"    ignore)
+     ("!" "Run"     ignore)]])
 
 (define-transient-command transient-dwim-magit ()
   "Invoke a Magit spesific transient.
