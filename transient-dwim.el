@@ -120,11 +120,11 @@
     ("c" "Commit"  ignore)
     ("t" "Tag"     ignore)]
    [""
-     ("f" "Fetch"   ignore)
-     ("F" "Pull"    ignore)
-     ("m" "Merge"   ignore)
-     ("P" "Push"    ignore)
-     ("!" "Run"     ignore)]])
+    ("f" "Fetch"   ignore)
+    ("F" "Pull"    ignore)
+    ("m" "Merge"   ignore)
+    ("P" "Push"    ignore)
+    ("!" "Run"     ignore)]])
 
 (define-transient-command transient-dwim-magit ()
   "Invoke a Magit spesific transient.
@@ -145,14 +145,13 @@ Magit:
    (5 magit:--gpg-sign)
    (magit-commit:--reuse-message)]
   [["Commit"
-    ("c" "Commit"     magit-commit-create)
-    ("=" "Commit -a"  transient-dwim-magit-commit-all)
-    ("e" "Extend"     magit-commit-extend)
-    ("E" "Extend -a"  transient-dwim-magit-extend-all)
-    ("a" "Amend"      magit-commit-amend)
-    ("A" "Amend -a"   transient-dwim-magit-amend-all)
-    ("w" "Reword"     magit-commit-reword)
-    (6 "n" "Reshelve" magit-commit-reshelve)]
+    ("c" "  Commit"     magit-commit-create)
+    ("M-=" "Commit -a"  transient-dwim-magit-commit-all)
+    ("e" "  Extend"     magit-commit-extend)
+    ("E" "  Extend -a"  transient-dwim-magit-extend-all)
+    ("a" "  Amend"      magit-commit-amend)
+    ("A" "  Amend -a"   transient-dwim-magit-amend-all)
+    ("w" "  Reword"     magit-commit-reword)]
    ["Edit"
     ("F" "fixup"      magit-commit-instant-fixup)
     ("S" "squash"     magit-commit-instant-squash)]
