@@ -116,23 +116,23 @@ This transient invoked from `transient-dwim-dired-mode'."
 (define-transient-command transient-dwim-dired-mode ()
   "Invoke a major-mode spesific transient"
   [["Mark"
-    ("m" "Mark"         transient-dwim-dired-mode-mark)
-    ("/" "dired-filter" ignore)
-    ("n" "dired-narrow" ignore)]
+    ("m"   "Mark"         transient-dwim-dired-mode-mark)
+    ("/"   "dired-filter" ignore)
+    ("n"   "dired-narrow" ignore)]
    ["Git"
-    ("b" "Branch"  ignore)
-    ("S" "Stage"   ignore)
-    ("U" "Unstage" ignore)
-    ("z" "Stash"   ignore)
-    ("X" "Reset"   ignore)
-    ("c" "Commit"  ignore)
-    ("t" "Tag"     ignore)]
+    ("b"   "Branch"       ignore)
+    ("S"   "Stage"        ignore)
+    ("U"   "Unstage"      ignore)
+    ("z"   "Stash"        ignore)
+    ("X"   "Reset"        ignore)
+    ("c"   "Commit"       ignore)
+    ("t"   "Tag"          ignore)]
    [""
-    ("f" "Fetch"   ignore)
-    ("F" "Pull"    ignore)
-    ("M" "Merge"   ignore)
-    ("P" "Push"    ignore)
-    ("!" "Run"     ignore)]])
+    ("f"   "Fetch"        ignore)
+    ("F"   "Pull"         ignore)
+    ("M"   "Merge"        ignore)
+    ("P"   "Push"         ignore)
+    ("!"   "Run"          ignore)]])
 
 (define-transient-command transient-dwim-magit ()
   "Invoke a Magit spesific transient.
@@ -161,21 +161,21 @@ Magit:
     ("A" "  Amend -a"   transient-dwim-magit-amend-all)
     ("w" "  Reword"     magit-commit-reword)]
    ["Edit"
-    ("F" "fixup"      magit-commit-instant-fixup)
-    ("S" "squash"     magit-commit-instant-squash)]
+    ("F"   "fixup"      magit-commit-instant-fixup)
+    ("S"   "squash"     magit-commit-instant-squash)]
    ["Misc"
-    ("s" "Status"     magit-status)
-    ("b" "Branch"     magit-branch)
-    ("C" "Clone"      magit-clone)
-    ("d" "Diff"       magit-diff-working-tree)
-    ("f" "Fetch"      magit-fetch)
-    ("F" "Pull"       magit-pull)]
+    ("s"   "Status"     magit-status)
+    ("b"   "Branch"     magit-branch)
+    ("C"   "Clone"      magit-clone)
+    ("d"   "Diff"       magit-diff-working-tree)
+    ("f"   "Fetch"      magit-fetch)
+    ("F"   "Pull"       magit-pull)]
    [""
-    ("m" "Merge"      magit-merge)
-    ("r" "Rebase"     magit-rebase)
-    ("l" "Log"        magit-log)
-    ("X" "Reset"      magit-reset)
-    ("z" "Stash"      magit-stash)]])
+    ("m"   "Merge"      magit-merge)
+    ("r"   "Rebase"     magit-rebase)
+    ("l"   "Log"        magit-log)
+    ("X"   "Reset"      magit-reset)
+    ("z"   "Stash"      magit-stash)]])
 
 ;;;###autoload (autoload 'transient-dwim-dispatch "transient-dwim" nil t)
 (define-transient-command transient-dwim-dispatch ()
