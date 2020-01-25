@@ -105,133 +105,125 @@
                 (args elm))
             (let ((packages      (plist-get :packages info))
                   (docstringspec (or (plist-get :docstring info) "")))
-              `(define-transient-command ,name ()
+              `(define-transient-command ,(intern (format "transient-dwim-%s" name)) ()
                  ,docstringspec
                  ,@args))))
         spec)))
 
-(define-transient-command transient-dwim-dired-mode-mark ()
-  "Invoke a major-mode spesific transient.
-This transient invoked from `transient-dwim-dired-mode'."
-  [["Mark"
-    ("m"   "Mark this"       dired-mark)
-    ("s"   "Mark all"        dired-mark-subdir-files)
-    ("*"   "Executables"     dired-mark-executables)
-    ("/"   "Directories"     dired-mark-directories)
-    ("@"   "Symlinks"        dired-mark-symlinks)
-    ("%"   "Regexp..."       dired-mark-files-regexp)
-    ("c"   "Change..."       dired-change-marks)]
-   ["Misc"
-    ("u" "  Unmark this"     dired-unmark)
-    ("U" "  Unmark all"      dired-unmark-all-marks)
-    ("DEL" "Unmark backward" dired-unmark-backward)
-    ("C-n" "Next mark"       dired-next-marked-file)
-    ("C-p" "Prev mark"       dired-prev-marked-file)
-    ("t" "  Toggle"          dired-toggle-marks)]])
-
-(define-transient-command transient-dwim-dired-mode-git ()
-  "Invoke a major-mode spesific transient.
-This transient invoked from `transient-dwim-dired-mode'."
-  [["Worktree"
-    ("c"   "Commit"       ignore)
-    ("S"   "Stage"        ignore)
-    ("U"   "Unstage"      ignore)
-    ("z"   "Stash"        ignore)
-    ("X"   "Reset"        ignore)]
-   ["Branch"
-    ("b"   "Branch"       ignore)
-    ("t"   "Tag"          ignore)
-    ("f"   "Fetch"        ignore)
-    ("F"   "Pull"         ignore)
-    ("m"   "Merge"        ignore)
-    ("P"   "Push"         ignore)
-    ("!"   "Run"          ignore)]])
-
-(define-transient-command transient-dwim-dired-mode ()
-  "Invoke a major-mode spesific transient.
-
-Packages:
-  - Name: dired-filter (MELPA)
-    URL : https://github.com/Fuco1/dired-hacks
-  - Name: dired-narrow (MELPA)
-    URL : https://github.com/Fuco1/dired-hacks"
-  [["Mark"
-    ("m"   "Mark"         transient-dwim-dired-mode-mark)]
-   ["Third party"
-    ("/"   "dired-filter" ignore)
-    ("n"   "dired-narrow" ignore)
-    ("g"   "dired-git"    transient-dwim-dired-mode-git)]])
-
-(define-transient-command transient-dwim-magit ()
-  "Invoke a Magit spesific transient.
-This transient is based `magit-commit' and `magit-status'.
-
-Packages:
-  - Name: Magit (MELPA)
-  - URL : https://github.com/magit/magit"
-  ["Arguments"
-   ("-a" "Stage all modified and deleted files"   ("-a" "--all"))
-   ("-e" "Allow empty commit"                     "--allow-empty")
-   ("-v" "Show diff of changes to be committed"   ("-v" "--verbose"))
-   ("-n" "Disable hooks"                          ("-n" "--no-verify"))
-   ("-R" "Claim authorship and reset author date" "--reset-author")
-   (magit:--author :description "Override the author")
-   (7 "-D" "Override the author date" "--date=" transient-read-date)
-   ("-s" "Add Signed-off-by line"                 ("-s" "--signoff"))
-   (5 magit:--gpg-sign)
-   (magit-commit:--reuse-message)]
-  [["Commit"
-    ("c" "  Commit"           magit-commit)
-    ("M-=" "Commit -a"        transient-dwim-magit-commit-all)
-    ("e" "  Extend"           magit-commit-extend)
-    ("E" "  Extend -a"        transient-dwim-magit-extend-all)
-    ("a" "  Amend"            magit-commit-amend)
-    ("A" "  Amend -a"         transient-dwim-magit-amend-all)
-    ("w" "  Reword"           magit-commit-reword)]
-   ["Edit"
-    ("F"   "fixup"            magit-commit-instant-fixup)
-    ("S"   "squash"           magit-commit-instant-squash)
-    ("s"   "Status"           magit-status)]
-   ["Magit dispatch"
-    ;;("A" "Apply"            magit-cherry-pick)
-    ("b"   "Branch"           magit-branch)
-    ("B"   "Bisect"           magit-bisect)
-    ;;("c" "Commit"           magit-commit)
-    ("C"   "Clone"            magit-clone)
-    ("d"   "Diff"             magit-diff)
-    ("D"   "Diff (change)"    magit-diff-refresh)
-    ;;("e" "Ediff (dwim)"     magit-ediff-dwim)
-    ;;("E" "Ediff"            magit-ediff)
-    ("f"   "Fetch"            magit-fetch)
-    ;;("F" "Pull"             magit-pull)
-    ("l"   "Log"              magit-log)
-    ("L"   "Log (change)"     magit-log-refresh)]
-   [""
-    ("m"   "Merge"            magit-merge)
-    ("M"   "Remote"           magit-remote)
-    ("o"   "Submodule"        magit-submodule)
-    ("O"   "Subtree"          magit-subtree)
-    ("P"   "Push"             magit-push)
-    ("r"   "Rebase"           magit-rebase)
-    ("t"   "Tag"              magit-tag)
-    ("T"   "Note"             magit-notes)]
-   [""
-    ("V"   "Revert"           magit-revert)
-    ;;("w" "Apply patches"    magit-am)
-    ("W"   "Format patches"   magit-patch)
-    ("X"   "Reset"            magit-reset)
-    ("y"   "Show Refs"        magit-show-refs)
-    ("Y"   "Cherries"         magit-cherry)
-    ("z"   "Stash"            magit-stash)
-    ("!"   "Run"              magit-run)
-    ("%"   "Worktree"         magit-worktree)]])
-
 ;;;###autoload (autoload 'transient-dwim-dispatch "transient-dwim" nil t)
-(define-transient-command transient-dwim-dispatch ()
-  "Invoke a transient-dwim command."
-  ["Transient dwim"
-   [("m" "Major mode" transient-dwim-major-mode)]
-   [("M-=" "Magit"    transient-dwim-magit)]])
+(transient-dwim--define-transient-command-multi
+ ((dispatch
+   nil
+   ["Transient dwim"
+    [("m" "Major mode"             transient-dwim-major-mode)]
+    [("M-=" "Magit"                transient-dwim-magit)]])
+
+  (dired-mode
+   (:packages (((name . "dired-filter (MELPA)")
+                (url  . "https://github.com/Fuco1/dired-hacks"))
+               ((name . "dired-narrow (MELPA)")
+                (url  . "https://github.com/Fuco1/dired-hacks"))))
+   [["Mark"
+     ("m"   "Mark"                 transient-dwim-dired-mode-mark)]
+    ["Third party"
+     ("/"   "dired-filter"         ignore)
+     ("n"   "dired-narrow"         ignore)
+     ("g"   "dired-git"            transient-dwim-dired-mode-git)]])
+
+  (dired-mode-mark
+   (:packages (((name . "dired (builtin)"))))
+   [["Mark"
+     ("m"   "Mark this"            dired-mark)
+     ("s"   "Mark all"             dired-mark-subdir-files)
+     ("*"   "Executables"          dired-mark-executables)
+     ("/"   "Directories"          dired-mark-directories)
+     ("@"   "Symlinks"             dired-mark-symlinks)
+     ("%"   "Regexp..."            dired-mark-files-regexp)
+     ("c"   "Change..."            dired-change-marks)]
+    ["Misc"
+     ("u" "  Unmark this"          dired-unmark)
+     ("U" "  Unmark all"           dired-unmark-all-marks)
+     ("DEL" "Unmark backward"      dired-unmark-backward)
+     ("C-n" "Next mark"            dired-next-marked-file)
+     ("C-p" "Prev mark"            dired-prev-marked-file)
+     ("t" "  Toggle"               dired-toggle-marks)]])
+
+  (dired-mode-git
+   (:packages (((name . "dired (builtin)"))))
+   [["Worktree"
+     ("c"   "Commit"               ignore)
+     ("S"   "Stage"                ignore)
+     ("U"   "Unstage"              ignore)
+     ("z"   "Stash"                ignore)
+     ("X"   "Reset"                ignore)]
+    ["Branch"
+     ("b"   "Branch"               ignore)
+     ("t"   "Tag"                  ignore)
+     ("f"   "Fetch"                ignore)
+     ("F"   "Pull"                 ignore)
+     ("m"   "Merge"                ignore)
+     ("P"   "Push"                 ignore)
+     ("!"   "Run"                  ignore)]])
+
+  (magit
+   (:packages (((name . "magit (MELPA)")
+                (url  . "https://github.com/magit/magit"))))
+   ["Arguments"
+    ("-a" "Stage all modified and deleted files"   ("-a" "--all"))
+    ("-e" "Allow empty commit"                     "--allow-empty")
+    ("-v" "Show diff of changes to be committed"   ("-v" "--verbose"))
+    ("-n" "Disable hooks"                          ("-n" "--no-verify"))
+    ("-R" "Claim authorship and reset author date" "--reset-author")
+    (magit:--author :description "Override the author")
+    (7 "-D" "Override the author date" "--date=" transient-read-date)
+    ("-s" "Add Signed-off-by line"                 ("-s" "--signoff"))
+    (5 magit:--gpg-sign)
+    (magit-commit:--reuse-message)]
+   [["Commit"
+     ("c" "  Commit"               magit-commit)
+     ("M-=" "Commit -a"            transient-dwim-magit-commit-all)
+     ("e" "  Extend"               magit-commit-extend)
+     ("E" "  Extend -a"            transient-dwim-magit-extend-all)
+     ("a" "  Amend"                magit-commit-amend)
+     ("A" "  Amend -a"             transient-dwim-magit-amend-all)
+     ("w" "  Reword"               magit-commit-reword)]
+    ["Edit"
+     ("F"   "fixup"                magit-commit-instant-fixup)
+     ("S"   "squash"               magit-commit-instant-squash)
+     ("s"   "Status"               magit-status)]
+    ["Magit dispatch"
+     ;;("A" "Apply"                magit-cherry-pick)
+     ("b"   "Branch"               magit-branch)
+     ("B"   "Bisect"               magit-bisect)
+     ;;("c" "Commit"               magit-commit)
+     ("C"   "Clone"                magit-clone)
+     ("d"   "Diff"                 magit-diff)
+     ("D"   "Diff (change)"        magit-diff-refresh)
+     ;;("e" "Ediff (dwim)"         magit-ediff-dwim)
+     ;;("E" "Ediff"                magit-ediff)
+     ("f"   "Fetch"                magit-fetch)
+     ;;("F" "Pull"                 magit-pull)
+     ("l"   "Log"                  magit-log)
+     ("L"   "Log (change)"         magit-log-refresh)]
+    [""
+     ("m"   "Merge"                magit-merge)
+     ("M"   "Remote"               magit-remote)
+     ("o"   "Submodule"            magit-submodule)
+     ("O"   "Subtree"              magit-subtree)
+     ("P"   "Push"                 magit-push)
+     ("r"   "Rebase"               magit-rebase)
+     ("t"   "Tag"                  magit-tag)
+     ("T"   "Note"                 magit-notes)]
+    [""
+     ("V"   "Revert"               magit-revert)
+     ;;("w" "Apply patches"        magit-am)
+     ("W"   "Format patches"       magit-patch)
+     ("X"   "Reset"                magit-reset)
+     ("y"   "Show Refs"            magit-show-refs)
+     ("Y"   "Cherries"             magit-cherry)
+     ("z"   "Stash"                magit-stash)
+     ("!"   "Run"                  magit-run)
+     ("%"   "Worktree"             magit-worktree)]])))
 
 (provide 'transient-dwim)
 
