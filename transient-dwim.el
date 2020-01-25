@@ -124,29 +124,69 @@
                ((name . "dired-narrow (MELPA)")
                 (url  . "https://github.com/Fuco1/dired-hacks"))))
    [["Mark"
-     ("m"   "Mark"                 transient-dwim-dired-mode-mark)]
+     ("m"   "Mark"                 dired-mark)
+     ("h"   "Mark all"             dired-mark-subdir-files)
+     ("u"   "Unmark"               dired-unmark)
+     ("U"   "Unmark all"           dired-unmark-all-marks)
+     ("*"   "Executables"          dired-mark-executables)
+     ("d"   "Directories"          dired-mark-directories)
+     ("@"   "Symlinks"             dired-mark-symlinks)
+     ("e"   "Garbage"              dired-flag-garbage-files)
+     ("#"   "Auto save files"      dired-flag-auto-save-files)
+     ("~"   "backup files"         dired-flag-backup-files)
+     ("."   "Numerical backups"    dired-clean-directory)
+     ("%"   "Regexp"               dired-mark-files-regexp)
+     (";"   "Change mark"          dired-change-marks)
+     ("t"   "Toggle mark"          dired-toggle-marks)]
+    ["Command for marked files"
+     ("x"   "Do action"            dired-do-flagged-delete)
+     ("A"   "Find"                 dired-do-find-regexp)
+     ("C"   "Copy"                 dired-do-copy)
+     ("D"   "Delete"               dired-do-delete)
+     ("S"   "Symlink"              dired-do-symlink)
+     ("H"   "Hardlink"             dired-do-hardlink)
+     ("P"   "Print"                dired-do-print)
+     ("Q"   "Replace"              dired-do-find-regexp-and-replace)
+     ("B"   "Elisp bytecompile"    dired-do-byte-compile)
+     ("L"   "Elisp load"           dired-do-load)
+     ("X"   "Shell command"        dired-do-shell-command)
+     ("Z"   "Compress"             dired-do-compress)
+     ("z"   "Compress to"          dired-do-compress-to)
+     ("!"   "Shell command"        dired-do-shell-command)
+     ("&"   "Async shell command"  dired-do-async-shell-command)]
+    ["Command"
+     ("RET" "Open file"            dired-find-file)
+     ("=" "  Diff"                 dired-diff)
+     ("j" "  Goto file"            dired-goto-file)
+     ("o" "  Open in other window" dired-find-file-other-window)
+     ("4" "  Display file"         dired-display-file)
+     ("v" "  View file"            dired-view-file)
+     ("w" "  Copy filename"        dired-copy-filename-as-kill)
+     ("W" "  Open in browser"      browse-url-of-dired-file)
+     ("y" "  Show file type"       dired-show-file-type)
+     ("+" "  Create directory"     dired-create-directory)
+     ("<" "  Jump prev directory"  dired-prev-dirline)
+     (">" "  Jump next directory"  dired-next-dirline)
+     ("^" "  Move up directory"    dired-up-directory)]
+    ["Display"
+     ("g" "  Refresh"              revert-buffer)
+     ("l" "  Redisplay"            dired-do-redisplay)
+     ("k" "  Kill line"            dired-do-kill-lines)
+     ("s" "  Sort"                 dired-sort-toggle-or-edit)
+     ("(" "  Hide detail info"     dired-hide-details-mode)
+     ("i" "  Insert subdir"        dired-maybe-insert-subdir)
+     ("$" "  Hide subdir"          dired-hide-subdir)
+     ("M-$" "Hide subdir all"      dired-hide-subdir)]
+    ["Attribute"
+     ("R"   "Name"                 dired-do-rename)
+     ("G"   "Group"                dired-do-chgrp)
+     ("M"   "Mode"                 dired-do-chmod)
+     ("O"   "Owner"                dired-do-chown)
+     ("T"   "Timestamp"            dired-do-touch)]
     ["Third party"
      ("/"   "dired-filter"         ignore)
      ("n"   "dired-narrow"         ignore)
-     ("g"   "dired-git"            transient-dwim-dired-mode-git)]])
-
-  (dired-mode-mark
-   (:packages (((name . "dired (builtin)"))))
-   [["Mark"
-     ("m"   "Mark this"            dired-mark)
-     ("s"   "Mark all"             dired-mark-subdir-files)
-     ("*"   "Executables"          dired-mark-executables)
-     ("/"   "Directories"          dired-mark-directories)
-     ("@"   "Symlinks"             dired-mark-symlinks)
-     ("%"   "Regexp..."            dired-mark-files-regexp)
-     ("c"   "Change..."            dired-change-marks)]
-    ["Misc"
-     ("u" "  Unmark this"          dired-unmark)
-     ("U" "  Unmark all"           dired-unmark-all-marks)
-     ("DEL" "Unmark backward"      dired-unmark-backward)
-     ("C-n" "Next mark"            dired-next-marked-file)
-     ("C-p" "Prev mark"            dired-prev-marked-file)
-     ("t" "  Toggle"               dired-toggle-marks)]])
+     ("V"   "dired-git"            transient-dwim-dired-mode-git)]])
 
   (dired-mode-git
    (:packages (((name . "dired (builtin)"))))
