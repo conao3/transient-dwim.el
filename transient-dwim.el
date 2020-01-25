@@ -73,9 +73,7 @@
   (interactive)
   (magit-commit-extend '("--all")))
 
-
-;;; Main
-
+;;; transient-dwim
 (defun transient-dwim-major-mode ()
   "Invoke a mode-specific transient."
   (interactive)
@@ -93,6 +91,9 @@
         (call-interactively (intern (format "transient-dwim-%s" find-mode)))
       (error "Function transient-dwim-{%s} is not defined"
              (string-join (mapcar 'symbol-name modelist) ", ")))))
+
+
+;;; Main
 
 (define-transient-command transient-dwim-dired-mode-mark ()
   "Invoke a major-mode spesific transient.
