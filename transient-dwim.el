@@ -186,7 +186,8 @@
     ["Third party"
      ("/"   "dired-filter"         ignore)
      ("n"   "dired-narrow"         ignore)
-     ("V"   "dired-git"            transient-dwim-dired-mode-git)]])
+     ("V"   "dired-git"            transient-dwim-dired-mode-git)
+     (":"   "epa-dired"            transient-dwim-dired-mode-epa)]])
 
   (dired-mode-git
    (:packages (((name . "dired (builtin)"))))
@@ -205,6 +206,14 @@
      ("P"   "Push"                 ignore)
      ("!"   "Run"                  ignore)]])
 
+  (dired-mode-epa
+   (:packages (((name . "epa-dired (builtin)"))))
+   ["Commands"
+    ("e"   "Encrypt"               epa-dired-do-encrypt)
+    ("d"   "Decrypt"               epa-dired-do-decrypt)
+    ("v"   "Verify"                epa-dired-do-verify)
+    ("s"   "Sign"                  epa-dired-do-sign)])
+
   (magit
    (:packages (((name . "magit (MELPA)")
                 (url  . "https://github.com/magit/magit"))))
@@ -219,6 +228,7 @@
     ("-s" "Add Signed-off-by line"                 ("-s" "--signoff"))
     (5 magit:--gpg-sign)
     (magit-commit:--reuse-message)]
+
    [["Commit"
      ("c" "  Commit"               magit-commit)
      ("M-=" "Commit -a"            transient-dwim-magit-commit-all)
