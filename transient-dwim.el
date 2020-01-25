@@ -95,6 +95,21 @@
 
 ;;; Main
 
+(defmacro transient-dwim--define-transient-command-multi (spec)
+  "Define transient command with core information from SPEC."
+  `(progn
+     ,@(mapcar
+        (lambda (elm)
+          (let ((name (pop elm))
+                (info (pop elm))
+                (args elm))
+            (let ((packages      (plist-get :packages info))
+                  (docstringspec (or (plist-get :docstring info) "")))
+              `(define-transient-command ,name ()
+                 ,docstringspec
+                 ,@args))))
+        spec)))
+
 (define-transient-command transient-dwim-dired-mode-mark ()
   "Invoke a major-mode spesific transient.
 This transient invoked from `transient-dwim-dired-mode'."
