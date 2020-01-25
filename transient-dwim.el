@@ -94,8 +94,9 @@
       (error "Function transient-dwim-{%s} is not defined"
              (string-join (mapcar 'symbol-name modelist) ", ")))))
 
-(define-transient-command transient-dwim-dired-mode ()
-  "Invoke a major-mode spesific transient"
+(define-transient-command transient-dwim-dired-mode-mark ()
+  "Invoke a major-mode spesific transient.
+This transient invoked from `transient-dwim-dired-mode'."
   [["Mark"
     ("m"   "Mark this"       dired-mark)
     ("s"   "Mark all"        dired-mark-subdir-files)
@@ -104,13 +105,20 @@
     ("@"   "Symlinks"        dired-mark-symlinks)
     ("%"   "Regexp..."       dired-mark-files-regexp)
     ("c"   "Change..."       dired-change-marks)]
-   ["Unmark/Move"
+   ["Misc"
     ("u" "  Unmark this"     dired-unmark)
     ("U" "  Unmark all"      dired-unmark-all-marks)
     ("DEL" "Unmark backward" dired-unmark-backward)
     ("C-n" "Next mark"       dired-next-marked-file)
     ("C-p" "Prev mark"       dired-prev-marked-file)
-    ("t" "  Toggle"          dired-toggle-marks)]
+    ("t" "  Toggle"          dired-toggle-marks)]])
+
+(define-transient-command transient-dwim-dired-mode ()
+  "Invoke a major-mode spesific transient"
+  [["Mark"
+    ("m" "Mark"         transient-dwim-dired-mode-mark)
+    ("/" "dired-filter" ignore)
+    ("n" "dired-narrow" ignore)]
    ["Git"
     ("b" "Branch"  ignore)
     ("S" "Stage"   ignore)
@@ -122,7 +130,7 @@
    [""
     ("f" "Fetch"   ignore)
     ("F" "Pull"    ignore)
-    ("m" "Merge"   ignore)
+    ("M" "Merge"   ignore)
     ("P" "Push"    ignore)
     ("!" "Run"     ignore)]])
 
