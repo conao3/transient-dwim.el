@@ -114,7 +114,13 @@ This transient invoked from `transient-dwim-dired-mode'."
     ("t" "  Toggle"          dired-toggle-marks)]])
 
 (define-transient-command transient-dwim-dired-mode ()
-  "Invoke a major-mode spesific transient"
+  "Invoke a major-mode spesific transient.
+
+Packages:
+  - Name: dired-filter (MELPA)
+    URL : https://github.com/Fuco1/dired-hacks
+  - Name: dired-narrow (MELPA)
+    URL : https://github.com/Fuco1/dired-hacks"
   [["Mark"
     ("m"   "Mark"         transient-dwim-dired-mode-mark)
     ("/"   "dired-filter" ignore)
@@ -138,9 +144,9 @@ This transient invoked from `transient-dwim-dired-mode'."
   "Invoke a Magit spesific transient.
 This transient is based `magit-commit' and `magit-status'.
 
-Magit:
-  Package: magit (MELPA)
-  URL: https://github.com/magit/magit"
+Packages:
+  - Name: Magit (MELPA)
+  - URL : https://github.com/magit/magit"
   ["Arguments"
    ("-a" "Stage all modified and deleted files"   ("-a" "--all"))
    ("-e" "Allow empty commit"                     "--allow-empty")
