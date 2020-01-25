@@ -113,6 +113,24 @@ This transient invoked from `transient-dwim-dired-mode'."
     ("C-p" "Prev mark"       dired-prev-marked-file)
     ("t" "  Toggle"          dired-toggle-marks)]])
 
+(define-transient-command transient-dwim-dired-mode-git ()
+  "Invoke a major-mode spesific transient.
+This transient invoked from `transient-dwim-dired-mode'."
+  [["Worktree"
+    ("c"   "Commit"       ignore)
+    ("S"   "Stage"        ignore)
+    ("U"   "Unstage"      ignore)
+    ("z"   "Stash"        ignore)
+    ("X"   "Reset"        ignore)]
+   ["Branch"
+    ("b"   "Branch"       ignore)
+    ("t"   "Tag"          ignore)
+    ("f"   "Fetch"        ignore)
+    ("F"   "Pull"         ignore)
+    ("m"   "Merge"        ignore)
+    ("P"   "Push"         ignore)
+    ("!"   "Run"          ignore)]])
+
 (define-transient-command transient-dwim-dired-mode ()
   "Invoke a major-mode spesific transient.
 
@@ -122,23 +140,11 @@ Packages:
   - Name: dired-narrow (MELPA)
     URL : https://github.com/Fuco1/dired-hacks"
   [["Mark"
-    ("m"   "Mark"         transient-dwim-dired-mode-mark)
+    ("m"   "Mark"         transient-dwim-dired-mode-mark)]
+   ["Third party"
     ("/"   "dired-filter" ignore)
-    ("n"   "dired-narrow" ignore)]
-   ["Git"
-    ("b"   "Branch"       ignore)
-    ("S"   "Stage"        ignore)
-    ("U"   "Unstage"      ignore)
-    ("z"   "Stash"        ignore)
-    ("X"   "Reset"        ignore)
-    ("c"   "Commit"       ignore)
-    ("t"   "Tag"          ignore)]
-   [""
-    ("f"   "Fetch"        ignore)
-    ("F"   "Pull"         ignore)
-    ("M"   "Merge"        ignore)
-    ("P"   "Push"         ignore)
-    ("!"   "Run"          ignore)]])
+    ("n"   "dired-narrow" ignore)
+    ("g"   "dired-git"    transient-dwim-dired-mode-git)]])
 
 (define-transient-command transient-dwim-magit ()
   "Invoke a Magit spesific transient.
