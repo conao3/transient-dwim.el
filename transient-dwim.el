@@ -153,7 +153,7 @@ Magit:
    (5 magit:--gpg-sign)
    (magit-commit:--reuse-message)]
   [["Commit"
-    ("c" "  Commit"     magit-commit-create)
+    ("c" "  Commit"     magit-commit)
     ("M-=" "Commit -a"  transient-dwim-magit-commit-all)
     ("e" "  Extend"     magit-commit-extend)
     ("E" "  Extend -a"  transient-dwim-magit-extend-all)
@@ -162,20 +162,41 @@ Magit:
     ("w" "  Reword"     magit-commit-reword)]
    ["Edit"
     ("F"   "fixup"      magit-commit-instant-fixup)
-    ("S"   "squash"     magit-commit-instant-squash)]
-   ["Misc"
-    ("s"   "Status"     magit-status)
-    ("b"   "Branch"     magit-branch)
-    ("C"   "Clone"      magit-clone)
-    ("d"   "Diff"       magit-diff-working-tree)
-    ("f"   "Fetch"      magit-fetch)
-    ("F"   "Pull"       magit-pull)]
+    ("S"   "squash"     magit-commit-instant-squash)
+    ("s"   "Status"     magit-status)]
+   ["Magit dispatch"
+    ;; ("A"   "Apply"          magit-cherry-pick)
+    ("b"   "Branch"         magit-branch)
+    ("B"   "Bisect"         magit-bisect)
+    ;; ("c"   "Commit"         magit-commit)
+    ("C"   "Clone"          magit-clone)
+    ("d"   "Diff"           magit-diff)
+    ("D"   "Diff (change)"  magit-diff-refresh)
+    ;; ("e"   "Ediff (dwim)"   magit-ediff-dwim)
+    ;; ("E"   "Ediff"          magit-ediff)
+    ("f"   "Fetch"          magit-fetch)
+    ;; ("F"   "Pull"           magit-pull)
+    ("l"   "Log"            magit-log)
+    ("L"   "Log (change)"   magit-log-refresh)]
    [""
-    ("m"   "Merge"      magit-merge)
-    ("r"   "Rebase"     magit-rebase)
-    ("l"   "Log"        magit-log)
-    ("X"   "Reset"      magit-reset)
-    ("z"   "Stash"      magit-stash)]])
+    ("m"   "Merge"          magit-merge)
+    ("M"   "Remote"         magit-remote)
+    ("o"   "Submodule"      magit-submodule)
+    ("O"   "Subtree"        magit-subtree)
+    ("P"   "Push"           magit-push)
+    ("r"   "Rebase"         magit-rebase)
+    ("t"   "Tag"            magit-tag)
+    ("T"   "Note"           magit-notes)]
+   [""
+    ("V"   "Revert"         magit-revert)
+    ;; ("w"   "Apply patches"  magit-am)
+    ("W"   "Format patches" magit-patch)
+    ("X"   "Reset"          magit-reset)
+    ("y"   "Show Refs"      magit-show-refs)
+    ("Y"   "Cherries"       magit-cherry)
+    ("z"   "Stash"          magit-stash)
+    ("!"   "Run"            magit-run)
+    ("%"   "Worktree"       magit-worktree)]])
 
 ;;;###autoload (autoload 'transient-dwim-dispatch "transient-dwim" nil t)
 (define-transient-command transient-dwim-dispatch ()
