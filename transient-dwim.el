@@ -186,13 +186,13 @@
      ("T"   "Timestamp"            dired-do-touch)]
     ["Extension"
      ("e"   "wdired"               wdired-change-to-wdired-mode)
-     ("p"   "image-dired"          transient-dwim-dired-mode-image)
-     (":"   "epa-dired"            transient-dwim-dired-mode-epa)
+     ("p"   "image-dired"          transient-dwim-dired-mode--image)
+     (":"   "epa-dired"            transient-dwim-dired-mode--epa)
      ("/"   "dired-filter"         ignore)
      ("n"   "dired-narrow"         ignore)
-     ("V"   "dired-git"            transient-dwim-dired-mode-git)]])
+     ("V"   "dired-git"            transient-dwim-dired-mode--git)]])
 
-  (dired-mode-image
+  (dired-mode--image
    (:packages (((name . "image-dired (builtin)"))))
    ["Commands"
     ("d"    "Open thumbnail buffer"image-dired-display-thumbs)
@@ -207,7 +207,7 @@
     ("c"    "Edit comment"         image-dired-dired-comment-files)
     ("e"    "Edit comment/tag"     image-dired-dired-edit-comment-and-tags)])
 
-  (dired-mode-git
+  (dired-mode--git
    (:packages (((name . "dired (builtin)"))))
    [["Worktree"
      ("c"   "Commit"               ignore)
@@ -224,7 +224,7 @@
      ("P"   "Push"                 ignore)
      ("!"   "Run"                  ignore)]])
 
-  (dired-mode-epa
+  (dired-mode--epa
    (:packages (((name . "epa-dired (builtin)"))))
    ["Commands"
     ("e"   "Encrypt"               epa-dired-do-encrypt)
