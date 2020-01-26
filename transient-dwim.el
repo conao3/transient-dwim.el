@@ -192,6 +192,21 @@
      ("n"   "dired-narrow"         ignore)
      ("V"   "dired-git"            transient-dwim-dired-mode-git)]])
 
+  (dired-mode-image
+   (:packages (((name . "image-dired (builtin)"))))
+   ["Commands"
+    ("d"    "Open thumbnail buffer"image-dired-display-thumbs)
+    ("j"    "Jump thumbnail buffer"image-dired-jump-thumbnail-buffer)
+    ("a"    "Append thumnail buffer" image-dired-display-thumbs-append)
+    ("i"    "Inline thumnail"      image-dired-dired-toggle-marked-thumbs)
+    ("i"    "Display image"        image-dired-dired-display-image)
+    ("x"    "Open external"        image-dired-dired-display-external)
+    ("f"    "Mark via tag"         image-dired-mark-tagged-files)
+    ("t"    "Edit tag"             image-dired-tag-files)
+    ("r"    "Delete tag"           image-dired-delete-tag)
+    ("c"    "Edit comment"         image-dired-dired-comment-files)
+    ("e"    "Edit comment/tag"     image-dired-dired-edit-comment-and-tags)])
+
   (dired-mode-git
    (:packages (((name . "dired (builtin)"))))
    [["Worktree"
