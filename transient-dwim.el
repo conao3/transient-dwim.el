@@ -77,19 +77,18 @@
 (defun transient-dwim-major-mode ()
   "Invoke a mode-specific transient."
   (interactive)
-  (let ((mode major-mode)
-        modelist find-mode)
-    (while mode
-      (push mode modelist)
-      (setq mode (get mode 'derived-mode-parent)))
-    (setq find-mode
-          (cl-find-if
-           (lambda (elm)
-             (fboundp (intern (format "transient-dwim-%s" elm))))
-           (nreverse modelist)))
-    (if find-mode
-        (call-interactively (intern (format "transient-dwim-%s" find-mode)))
-      (error "Function transient-dwim-{%s} is not defined"
+  (let* ((modelist (let ((mode major-mode) lst)
+                     (while mode
+                       (push mode lst)
+                       (setq mode (get mode 'derived-mode-parent)))
+                     (nreverse lst)))
+         (target (cl-find-if
+                  (lambda (elm)
+                    (fboundp (intern (format "transient-dwim-%s" elm))))
+                  modelist)))
+    (if target
+        (call-interactively (intern (format "transient-dwim-%s" target)))
+      (user-error "Transient-dwim for (%s) is not supported.  Please report this at https://github.com/conao3/transient-dwim.el/issues"
              (string-join (mapcar 'symbol-name modelist) ", ")))))
 
 
@@ -199,9 +198,9 @@
     ("j"    "Jump thumbnail buffer"image-dired-jump-thumbnail-buffer)
     ("a"    "Append thumnail buffer" image-dired-display-thumbs-append)
     ("i"    "Inline thumnail"      image-dired-dired-toggle-marked-thumbs)
-    ("i"    "Display image"        image-dired-dired-display-image)
+    ("f"    "Display image"        image-dired-dired-display-image)
     ("x"    "Open external"        image-dired-dired-display-external)
-    ("f"    "Mark via tag"         image-dired-mark-tagged-files)
+    ("m"    "Mark via tag"         image-dired-mark-tagged-files)
     ("t"    "Edit tag"             image-dired-tag-files)
     ("r"    "Delete tag"           image-dired-delete-tag)
     ("c"    "Edit comment"         image-dired-dired-comment-files)
