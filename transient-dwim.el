@@ -136,16 +136,17 @@
      ("m~"  "backup files"         dired-flag-backup-files)
      ("m."  "Numerical backups"    dired-clean-directory)
      ("m%"  "Regexp"               dired-mark-files-regexp)
+     ("mg"  "Regexp file contents" dired-mark-files-containing-regexp)
      ("mc"  "Change mark"          dired-change-marks)
      ("mt"  "Toggle mark"          dired-toggle-marks)]
     ["Command for marked files"
      ("x"   "Do action"            dired-do-flagged-delete)
-     ("A"   "Find"                 dired-do-find-regexp)
      ("C"   "Copy"                 dired-do-copy)
      ("D"   "Delete"               dired-do-delete)
      ("S"   "Symlink"              dired-do-symlink)
      ("H"   "Hardlink"             dired-do-hardlink)
      ("P"   "Print"                dired-do-print)
+     ("A"   "Find"                 dired-do-find-regexp)
      ("Q"   "Replace"              dired-do-find-regexp-and-replace)
      ("B"   "Elisp bytecompile"    dired-do-byte-compile)
      ("L"   "Elisp load"           dired-do-load)
@@ -156,11 +157,11 @@
      ("&"   "Async shell command"  dired-do-async-shell-command)]
     ["Command"
      ("RET" "Open file"            dired-find-file)
+     ("o" "  Open in other window" dired-find-file-other-window)
+     ("C-o" "Open in other window (No select)" dired-display-file)
+     ("v" "  Open file (View mode)"dired-view-file)
      ("=" "  Diff"                 dired-diff)
      ("j" "  Goto file"            dired-goto-file)
-     ("o" "  Open in other window" dired-find-file-other-window)
-     ("4" "  Display file"         dired-display-file)
-     ("v" "  View file"            dired-view-file)
      ("w" "  Copy filename"        dired-copy-filename-as-kill)
      ("W" "  Open in browser"      browse-url-of-dired-file)
      ("y" "  Show file type"       dired-show-file-type)
@@ -169,9 +170,9 @@
      (">" "  Jump next directory"  dired-next-dirline)
      ("^" "  Move up directory"    dired-up-directory)]
     ["Display"
-     ("g" "  Refresh"              revert-buffer)
-     ("l" "  Redisplay"            dired-do-redisplay)
-     ("k" "  Kill line"            dired-do-kill-lines)
+     ("g" "  Refresh buffer"       revert-buffer)
+     ("l" "  Refresh file"         dired-do-redisplay)
+     ("k" "  Remove line"          dired-do-kill-lines)
      ("s" "  Sort"                 dired-sort-toggle-or-edit)
      ("(" "  Hide detail info"     dired-hide-details-mode)
      ("i" "  Insert subdir"        dired-maybe-insert-subdir)
@@ -183,11 +184,13 @@
      ("M"   "Mode"                 dired-do-chmod)
      ("O"   "Owner"                dired-do-chown)
      ("T"   "Timestamp"            dired-do-touch)]
-    ["Third party"
+    ["Extension"
+     ("e"   "wdired"               wdired-change-to-wdired-mode)
+     ("p"   "image-dired"          transient-dwim-dired-mode-image)
+     (":"   "epa-dired"            transient-dwim-dired-mode-epa)
      ("/"   "dired-filter"         ignore)
      ("n"   "dired-narrow"         ignore)
-     ("V"   "dired-git"            transient-dwim-dired-mode-git)
-     (":"   "epa-dired"            transient-dwim-dired-mode-epa)]])
+     ("V"   "dired-git"            transient-dwim-dired-mode-git)]])
 
   (dired-mode-git
    (:packages (((name . "dired (builtin)"))))
