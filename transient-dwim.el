@@ -73,24 +73,6 @@
   (interactive)
   (magit-commit-extend '("--all")))
 
-;;; transient-dwim
-(defun transient-dwim-major-mode ()
-  "Invoke a mode-specific transient."
-  (interactive)
-  (let* ((modelist (let ((mode major-mode) lst)
-                     (while mode
-                       (push mode lst)
-                       (setq mode (get mode 'derived-mode-parent)))
-                     (nreverse lst)))
-         (target (cl-find-if
-                  (lambda (elm)
-                    (fboundp (intern (format "transient-dwim-%s" elm))))
-                  modelist)))
-    (if target
-        (call-interactively (intern (format "transient-dwim-%s" target)))
-      (user-error "Transient-dwim for (%s) is not supported.  Please report this at https://github.com/conao3/transient-dwim.el/issues"
-             (string-join (mapcar 'symbol-name modelist) ", ")))))
-
 
 ;;; Main
 
@@ -113,16 +95,9 @@
 (transient-dwim--define-transient-command-multi
  ((dispatch
    nil
-   ["Transient dwim"
-    [("m" "Major mode"             transient-dwim-major-mode)]
-    [("M-=" "Magit"                transient-dwim-magit)]])
-
-  (dired-mode
-   (:packages (((name . "dired-filter (MELPA)")
-                (url  . "https://github.com/Fuco1/dired-hacks"))
-               ((name . "dired-narrow (MELPA)")
-                (url  . "https://github.com/Fuco1/dired-hacks"))))
-   [["Mark"
+   ["Dired-mode"
+    :if-derived dired-mode
+    ["Mark"
      ("mm"  "Mark"                 dired-mark)
      ("mM"  "Mark all"             dired-mark-subdir-files)
      ("mu"  "Unmark"               dired-unmark)
@@ -189,7 +164,38 @@
      (":"   "epa-dired"            transient-dwim-dired-mode--epa)
      ("/"   "dired-filter"         ignore)
      ("n"   "dired-narrow"         ignore)
-     ("V"   "dired-git"            transient-dwim-dired-mode--git)]])
+     ("V"   "dired-git"            transient-dwim-dired-mode--git)]]
+
+   ["Image-dired-thumbnail-mode"
+    :if-derived image-dired-thumbnail-mode
+    ["Commands"
+     ("d" "  Mark as delete"       image-dired-flag-thumb-original-file)
+     ("m" "  Mark"                 image-dired-mark-thumb-original-file)
+     ("u" "  Unmark"               image-dired-unmark-thumb-original-file)
+     ("." "  Track"                image-dired-track-original-file)
+     ("TAB" "Jump dired"           image-dired-jump-original-dired-buffer)
+     ("gf" " Line up"              image-dired-line-up)
+     ("gg" " Line up (dynamic)"    image-dired-line-up-dynamic)
+     ("gi" " Line up (interactive)"image-dired-line-up-interactive)
+     ("tt" " Tag"                  image-dired-tag-thumbnail)
+     ("tr" " Delete tag"           image-dired-tag-thumbnail-remove)
+
+     ("RET" "Open image"           image-dired-display-thumbnail-original-image)
+     ("E" "  Open image external"  image-dired-thumbnail-display-external)
+
+     ("l" "  Rotate left"          image-dired-rotate-thumbnail-left)
+     ("r" "  Rotate right"         image-dired-rotate-thumbnail-right)
+     ("L" "  Original rotate left" image-dired-rotate-original-left)
+     ("R" "  Original rotate right"image-dired-rotate-original-right)
+
+     ("D" "  Add description"      image-dired-thumbnail-set-image-description)
+     ("C-d" "Delete thumnail"      image-dired-delete-char)
+     ("SPC" "Show image and next"  image-dired-display-next-thumbnail-original)
+     ("DEL" "Show image and prev"  image-dired-display-previous-thumbnail-original)
+     ("c" "  Add comment"          image-dired-comment-thumbnail)]]
+
+   ["Extension"
+    [("M-=" "Magit"                transient-dwim-magit :if (lambda () (require 'magit nil t)))]])
 
   (dired-mode--image
    (:packages (((name . "image-dired (builtin)"))))
@@ -230,34 +236,6 @@
     ("d"    "Decrypt"              epa-dired-do-decrypt)
     ("v"    "Verify"               epa-dired-do-verify)
     ("s"    "Sign"                 epa-dired-do-sign)])
-
-  (image-dired-thumbnail-mode
-   (:packages (((name . "image-dired (builtin)"))))
-   [["Commands"
-     ("d" "  Mark as delete"       image-dired-flag-thumb-original-file)
-     ("m" "  Mark"                 image-dired-mark-thumb-original-file)
-     ("u" "  Unmark"               image-dired-unmark-thumb-original-file)
-     ("." "  Track"                image-dired-track-original-file)
-     ("TAB" "Jump dired"           image-dired-jump-original-dired-buffer)
-     ("gf" " Line up"              image-dired-line-up)
-     ("gg" " Line up (dynamic)"    image-dired-line-up-dynamic)
-     ("gi" " Line up (interactive)"image-dired-line-up-interactive)
-     ("tt" " Tag"                  image-dired-tag-thumbnail)
-     ("tr" " Delete tag"           image-dired-tag-thumbnail-remove)
-
-     ("RET" "Open image"           image-dired-display-thumbnail-original-image)
-     ("E" "  Open image external"  image-dired-thumbnail-display-external)
-
-     ("l" "  Rotate left"          image-dired-rotate-thumbnail-left)
-     ("r" "  Rotate right"         image-dired-rotate-thumbnail-right)
-     ("L" "  Original rotate left" image-dired-rotate-original-left)
-     ("R" "  Original rotate right"image-dired-rotate-original-right)
-
-     ("D" "  Add description"      image-dired-thumbnail-set-image-description)
-     ("C-d" "Delete thumnail"      image-dired-delete-char)
-     ("SPC" "Show image and next"  image-dired-display-next-thumbnail-original)
-     ("DEL" "Show image and prev"  image-dired-display-previous-thumbnail-original)
-     ("c" "  Add comment"          image-dired-comment-thumbnail)]])
 
   (magit
    (:packages (((name . "magit (MELPA)")
