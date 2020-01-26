@@ -226,10 +226,38 @@
   (dired-mode--epa
    (:packages (((name . "epa-dired (builtin)"))))
    ["Commands"
-    ("e"   "Encrypt"               epa-dired-do-encrypt)
-    ("d"   "Decrypt"               epa-dired-do-decrypt)
-    ("v"   "Verify"                epa-dired-do-verify)
-    ("s"   "Sign"                  epa-dired-do-sign)])
+    ("e"    "Encrypt"              epa-dired-do-encrypt)
+    ("d"    "Decrypt"              epa-dired-do-decrypt)
+    ("v"    "Verify"               epa-dired-do-verify)
+    ("s"    "Sign"                 epa-dired-do-sign)])
+
+  (image-dired-thumbnail-mode
+   (:packages (((name . "image-dired (builtin)"))))
+   [["Commands"
+     ("d" "  Mark as delete"       image-dired-flag-thumb-original-file)
+     ("m" "  Mark"                 image-dired-mark-thumb-original-file)
+     ("u" "  Unmark"               image-dired-unmark-thumb-original-file)
+     ("." "  Track"                image-dired-track-original-file)
+     ("TAB" "Jump dired"           image-dired-jump-original-dired-buffer)
+     ("gf" " Line up"              image-dired-line-up)
+     ("gg" " Line up (dynamic)"    image-dired-line-up-dynamic)
+     ("gi" " Line up (interactive)"image-dired-line-up-interactive)
+     ("tt" " Tag"                  image-dired-tag-thumbnail)
+     ("tr" " Delete tag"           image-dired-tag-thumbnail-remove)
+
+     ("RET" "Open image"           image-dired-display-thumbnail-original-image)
+     ("E" "  Open image external"  image-dired-thumbnail-display-external)
+
+     ("l" "  Rotate left"          image-dired-rotate-thumbnail-left)
+     ("r" "  Rotate right"         image-dired-rotate-thumbnail-right)
+     ("L" "  Original rotate left" image-dired-rotate-original-left)
+     ("R" "  Original rotate right"image-dired-rotate-original-right)
+
+     ("D" "  Add description"      image-dired-thumbnail-set-image-description)
+     ("C-d" "Delete thumnail"      image-dired-delete-char)
+     ("SPC" "Show image and next"  image-dired-display-next-thumbnail-original)
+     ("DEL" "Show image and prev"  image-dired-display-previous-thumbnail-original)
+     ("c" "  Add comment"          image-dired-comment-thumbnail)]])
 
   (magit
    (:packages (((name . "magit (MELPA)")
