@@ -301,7 +301,7 @@ The following %-sequences are supported:
      ("A" "  Amend -a"             transient-dwim-magit-amend-all)
      ("w" "  Reword"               magit-commit-reword)]
     ["Edit"
-     ("F"   "fixup"                magit-commit-instant-fixup)
+     ("U"   "fixup"                magit-commit-instant-fixup)
      ("S"   "squash"               magit-commit-instant-squash)
      ("s"   "Status"               magit-status)]
     ["Magit dispatch"
@@ -315,7 +315,7 @@ The following %-sequences are supported:
      ;; ("e" "Ediff (dwim)"        magit-ediff-dwim)
      ;; ("E" "Ediff"               magit-ediff)
      ("f"   "Fetch"                magit-fetch)
-     ;; ("F" "Pull"                magit-pull)
+     ("F"   "Pull"                 magit-pull)
      ("l"   "Log"                  magit-log)
      ("L"   "Log (change)"         magit-log-refresh)]
     [""
