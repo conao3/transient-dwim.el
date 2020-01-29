@@ -305,17 +305,17 @@ The following %-sequences are supported:
      ("S"   "squash"               magit-commit-instant-squash)
      ("s"   "Status"               magit-status)]
     ["Magit dispatch"
-     ;;("A" "Apply"                magit-cherry-pick)
+     ;; ("A" "Apply"               magit-cherry-pick)
      ("b"   "Branch"               magit-branch)
      ("B"   "Bisect"               magit-bisect)
-     ;;("c" "Commit"               magit-commit)
+     ;; ("c" "Commit"              magit-commit)
      ("C"   "Clone"                magit-clone)
      ("d"   "Diff"                 magit-diff)
      ("D"   "Diff (change)"        magit-diff-refresh)
-     ;;("e" "Ediff (dwim)"         magit-ediff-dwim)
-     ;;("E" "Ediff"                magit-ediff)
+     ;; ("e" "Ediff (dwim)"        magit-ediff-dwim)
+     ;; ("E" "Ediff"               magit-ediff)
      ("f"   "Fetch"                magit-fetch)
-     ;;("F" "Pull"                 magit-pull)
+     ;; ("F" "Pull"                magit-pull)
      ("l"   "Log"                  magit-log)
      ("L"   "Log (change)"         magit-log-refresh)]
     [""
@@ -329,7 +329,7 @@ The following %-sequences are supported:
      ("T"   "Note"                 magit-notes)]
     [""
      ("V"   "Revert"               magit-revert)
-     ;;("w" "Apply patches"        magit-am)
+     ;; ("w" "Apply patches"       magit-am)
      ("W"   "Format patches"       magit-patch)
      ("X"   "Reset"                magit-reset)
      ("y"   "Show Refs"            magit-show-refs)
