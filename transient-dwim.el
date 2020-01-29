@@ -79,8 +79,9 @@
 
 ;;; Main
 
-(defvar transient-dwim-docstring-format
-  "Transient-dwim for `%p'.
+(eval-and-compile
+  (defvar transient-dwim-docstring-format
+    "Transient-dwim for `%p'.
 
 Depends packages:
 %P
@@ -92,34 +93,34 @@ customize scheme, https://magit.vc/manual/transient/Modifying-Existing-Transient
 
 Or, please send a Issue/PR to https://github.com/conao3/transient-dwim.el"
 
-  "The format string used to docstring for transients function.
+    "The format string used to docstring for transients function.
 
 The following %-sequences are supported:
   `%p': Target package name.
   `%p': Depends packages name.
   `%U': Depends packages URL.")
 
-(defun transient-dwim--create-docstring (pkg info)
-  "Create docstring from PKG and transient-command-multi INFO."
-  (let ((dep-pkgs-info (plist-get info :packages))
-        (docstringspec (or (plist-get :docstring info) transient-dwim-docstring-format)))
-    (let ((dep-pkgs-name (mapcar (lambda (elm) (alist-get 'name elm)) dep-pkgs-info))
-          (dep-pkgs-url  (mapcar (lambda (elm) (alist-get 'url elm)) dep-pkgs-info)))
-      (format-spec
-       docstringspec
-       `((?p . ,pkg)
-         (?P . ,(if dep-pkgs-info
-                    (cl-loop for elm in dep-pkgs-name
-                             for i from 1
-                             when elm
-                             concat (format "  - %s [%d]\n" elm i))
-                  "  None\n"))
-         (?U . ,(if dep-pkgs-info
-                    (cl-loop for elm in dep-pkgs-url
-                             for i from 1
-                             when elm
-                             concat (format "  - %s [%d]\n" elm i))
-                  "  None\n")))))))
+  (defun transient-dwim--create-docstring (pkg info)
+    "Create docstring from PKG and transient-command-multi INFO."
+    (let ((dep-pkgs-info (plist-get info :packages))
+          (docstringspec (or (plist-get :docstring info) transient-dwim-docstring-format)))
+      (let ((dep-pkgs-name (mapcar (lambda (elm) (alist-get 'name elm)) dep-pkgs-info))
+            (dep-pkgs-url  (mapcar (lambda (elm) (alist-get 'url elm)) dep-pkgs-info)))
+        (format-spec
+         docstringspec
+         `((?p . ,pkg)
+           (?P . ,(if dep-pkgs-info
+                      (cl-loop for elm in dep-pkgs-name
+                               for i from 1
+                               when elm
+                               concat (format "  - %s [%d]\n" elm i))
+                    "  None\n"))
+           (?U . ,(if dep-pkgs-info
+                      (cl-loop for elm in dep-pkgs-url
+                               for i from 1
+                               when elm
+                               concat (format "  - %s [%d]\n" elm i))
+                    "  None\n"))))))))
 
 (defmacro transient-dwim--define-transient-command-multi (spec)
   "Define transient command with core information from SPEC."
@@ -130,7 +131,7 @@ The following %-sequences are supported:
                 (info (pop elm))
                 (args elm))
             `(define-transient-command ,(intern (format "transient-dwim-%s" pkg)) ()
-               (transient-dwim--create-docstring ',pkg ',info)
+               ,(transient-dwim--create-docstring pkg info)
                ,@args)))
         spec)))
 
