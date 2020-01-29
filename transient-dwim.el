@@ -76,19 +76,59 @@
 
 ;;; Main
 
+(defvar transient-dwim-docstring-format
+  "Transient-dwim for `%p'.
+
+Depends packages:
+%P
+URL:
+%U
+This transient command is defined by `transient-dwim--define-transient-command-multi'.
+If you want to customize this transient command, please use transient
+customize scheme, https://magit.vc/manual/transient/Modifying-Existing-Transients.html
+
+Or, please send a Issue/PR to https://github.com/conao3/transient-dwim.el"
+
+  "The format string used to docstring for transients function.
+
+The following %-sequences are supported:
+  `%p': Target package name.
+  `%p': Depends packages name.
+  `%U': Depends packages URL.")
+
+(defun transient-dwim--create-docstring (pkg info)
+  "Create docstring from PKG and transient-command-multi INFO."
+  (let ((dep-pkgs-info (plist-get info :packages))
+        (docstringspec (or (plist-get :docstring info) transient-dwim-docstring-format)))
+    (let ((dep-pkgs-name (mapcar (lambda (elm) (alist-get 'name elm)) dep-pkgs-info))
+          (dep-pkgs-url  (mapcar (lambda (elm) (alist-get 'url elm)) dep-pkgs-info)))
+      (format-spec
+       docstringspec
+       `((?p . ,pkg)
+         (?P . ,(if dep-pkgs-info
+                    (cl-loop for elm in dep-pkgs-name
+                             for i from 1
+                             when elm
+                             concat (format "  - %s [%d]\n" elm i))
+                  "  None\n"))
+         (?U . ,(if dep-pkgs-info
+                    (cl-loop for elm in dep-pkgs-url
+                             for i from 1
+                             when elm
+                             concat (format "  - %s [%d]\n" elm i))
+                  "  None\n")))))))
+
 (defmacro transient-dwim--define-transient-command-multi (spec)
   "Define transient command with core information from SPEC."
   `(progn
      ,@(mapcar
         (lambda (elm)
-          (let ((name (pop elm))
+          (let ((pkg  (pop elm))
                 (info (pop elm))
                 (args elm))
-            (let ((packages      (plist-get :packages info))
-                  (docstringspec (or (plist-get :docstring info) "")))
-              `(define-transient-command ,(intern (format "transient-dwim-%s" name)) ()
-                 ,docstringspec
-                 ,@args))))
+            `(define-transient-command ,(intern (format "transient-dwim-%s" pkg)) ()
+               (transient-dwim--create-docstring ',pkg ',info)
+               ,@args)))
         spec)))
 
 ;;;###autoload (autoload 'transient-dwim-dispatch "transient-dwim" nil t)
