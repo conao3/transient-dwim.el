@@ -259,20 +259,20 @@ The following %-sequences are supported:
   (dired-mode--git
    (:packages (((name . "dired (builtin)"))))
    [["Worktree"
-     ("c"   "Commit"               ignore)
-     ("S"   "Stage"                ignore)
-     ("U"   "Unstage"              ignore)
-     ("zz"  "Stash"                ignore)
-     ("zp"  "Stash pop"            ignore)
-     ("X"   "Reset"                ignore)]
+     ("c"   "Commit"               dired-git-commit)
+     ("S"   "Stage"                dired-git-stage)
+     ("U"   "Unstage"              dired-git-unstage)
+     ("zz"  "Stash"                dired-git-stash)
+     ("zp"  "Stash pop"            dired-git-stash-pop)
+     ("X"   "Reset --hard"         dired-git-reset-hard)]
     ["Branch"
-     ("b"   "Branch"               ignore)
-     ("t"   "Tag"                  ignore)
-     ("f"   "Fetch"                ignore)
-     ("F"   "Pull"                 ignore)
-     ("m"   "Merge"                ignore)
-     ("P"   "Push"                 ignore)
-     ("!"   "Run"                  ignore)]])
+     ("b"   "Branch"               dired-git-branch)
+     ("t"   "Tag"                  dired-git-tag)
+     ("f"   "Fetch"                dired-git-fetch)
+     ("F"   "Pull"                 dired-git-pull)
+     ("m"   "Merge"                dired-git-merge)
+     ("P"   "Push"                 dired-git-push)
+     ("!"   "Run"                  dired-git-run)]])
 
   (dired-mode--epa
    (:packages (((name . "epa-dired (builtin)"))))
