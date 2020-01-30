@@ -124,7 +124,7 @@ The following %-sequences are supported:
 
 (defmacro transient-dwim--define-transient-command-multi (spec)
   "Define transient command with core information from SPEC."
-  `(progn
+  `(prog1 'transient-dwim
      ,@(mapcar
         (lambda (elm)
           (let ((pkg  (pop elm))
