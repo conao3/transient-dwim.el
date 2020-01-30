@@ -262,7 +262,8 @@ The following %-sequences are supported:
      ("c"   "Commit"               ignore)
      ("S"   "Stage"                ignore)
      ("U"   "Unstage"              ignore)
-     ("z"   "Stash"                ignore)
+     ("zz"  "Stash"                ignore)
+     ("zp"  "Stash pop"            ignore)
      ("X"   "Reset"                ignore)]
     ["Branch"
      ("b"   "Branch"               ignore)
