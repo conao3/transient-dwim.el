@@ -362,8 +362,8 @@ The following %-sequences are supported:
      ("A" "  Amend -a"             transient-dwim-magit-amend-all)
      ("w" "  Reword"               magit-commit-reword)]
     ["Misc"
-     ("U"   "fixup"                magit-commit-instant-fixup)
-     ("S"   "squash"               magit-commit-instant-squash)
+     ("U"   "Fixup"                magit-commit-instant-fixup)
+     ("S"   "Squash"               magit-commit-instant-squash)
      ("s"   "Status"               magit-status)
      ("("   "Checkout feature"     transient-dwim-magit-feature-checkout)
      (")"   "PR feature"           transient-dwim-magit-feature-pull-request)]
