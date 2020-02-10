@@ -87,6 +87,23 @@
   (interactive)
   (magit-commit-extend '("--all")))
 
+(defun transient-dwim-magit-feature-checkout ()
+  "Checkout feature branch.
+If feature branch doesn't exist, create and checkout it."
+  (interactive)
+  (magit-branch-and-checkout "feature" "origin/master"))
+
+(defun transient-dwim-magit-feature-pull-request ()
+  "Do pull request from feature branch to origin/master."
+  (interactive)
+  (if (not (magit-get-current-branch))
+      (user-error "No branch is currently checked out")
+    (let ((username (magit-get "user.name")))
+      (when (not (magit-remote-p username))
+        (shell-command "hub fork"))
+      (magit-push-to-remote username nil)
+      (shell-command "hub pull-request &"))))
+
 
 ;;; Main
 
@@ -344,10 +361,12 @@ The following %-sequences are supported:
      ("a" "  Amend"                magit-commit-amend)
      ("A" "  Amend -a"             transient-dwim-magit-amend-all)
      ("w" "  Reword"               magit-commit-reword)]
-    ["Edit"
+    ["Misc"
      ("U"   "fixup"                magit-commit-instant-fixup)
      ("S"   "squash"               magit-commit-instant-squash)
-     ("s"   "Status"               magit-status)]
+     ("s"   "Status"               magit-status)
+     ("("   "Checkout feature"     transient-dwim-magit-feature-checkout)
+     (")"   "PR feature"           transient-dwim-magit-feature-pull-request)]
     ["Magit dispatch"
      ;; ("A" "Apply"               magit-cherry-pick)
      ("b"   "Branch"               magit-branch)
