@@ -36,7 +36,7 @@
 ;; now.  Just look at the neatly aligned menu and press the key
 ;; that appears.
 
-;; To Use this package, simply add this to your init.el:
+;; To use this package, simply add below code to your init.el:
 ;;   (define-key global-map (kbd "M-=") 'transient-dwim-dispatch)
 
 
