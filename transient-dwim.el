@@ -99,10 +99,12 @@ If feature branch doesn't exist, create and checkout it."
   (if (not (magit-get-current-branch))
       (user-error "No branch is currently checked out")
     (let ((username (magit-get "user.name")))
-      (when (not (magit-remote-p username))
-        (shell-command "hub fork"))
-      (magit-push-to-remote username nil)
-      (shell-command "hub pull-request &"))))
+      (shell-command
+       (mapconcat 'identity
+                  `(,(if (magit-remote-p username) ":" "hub fork")
+                    ,(format "git push %s" (shell-quote-argument username))
+                    "hub pull-request &")
+                  " && ")))))
 
 
 ;;; Main
