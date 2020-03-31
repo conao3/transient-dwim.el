@@ -37,6 +37,18 @@ You don't have to remember the cumbersome keybindings since
 now. Just look at the neatly aligned menu and press the key that
 appears.
 
+- dired-mode
+
+  [[https://raw.githubusercontent.com/conao3/files/master/blob/transient-dwim.el/dired-dispatch.png]]
+
+- magit
+
+  [[https://raw.githubusercontent.com/conao3/files/master/blob/transient-dwim.el/magit-dispatch.png]]
+
+- origami
+
+  [[https://raw.githubusercontent.com/conao3/files/master/blob/transient-dwim.el/origami-dispatch.png]]
+
 * Install
 #+begin_src emacs-lisp
   (leaf transient-dwim
