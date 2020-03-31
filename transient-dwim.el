@@ -239,7 +239,8 @@ The following %-sequences are supported:
      ("c" "  Add comment"          image-dired-comment-thumbnail)]]
 
    ["Extension"
-    [("M-=" "Magit"                transient-dwim-magit :if (lambda () (require 'magit nil t)))]])
+    [("M-=" "Magit"                transient-dwim-magit :if (lambda () (require 'magit nil t)))
+     ("M-o" "Origami"              transient-dwim-origami :if (lambda () (require 'origami nil t)))]])
 
   (dired-mode--image
    (:packages (((name . "image-dired (builtin)"))))
@@ -281,6 +282,33 @@ The following %-sequences are supported:
     ("d"    "Decrypt"              epa-dired-do-decrypt)
     ("v"    "Verify"               epa-dired-do-verify)
     ("s"    "Sign"                 epa-dired-do-sign)])
+
+  (origami
+   (:packages (((name . "origami (MELPA)")
+                (url  . "https://github.com/gregsexton/origami.el"))))
+   [["Open/Close"
+     ("s" "  Show"                 origami-show-node)
+     ("S" "  Only show"            origami-show-only-node)
+     ("o" "  Open"                 origami-open-node)
+     ("O" "  Open all"             origami-open-all-nodes)
+     ("C-o" "Open recursive"       origami-open-node-recursively)
+     ("c" "  Close"                origami-close-node)
+     ("C" "  Close all"            origami-close-all-nodes)
+     ("C-c" "Close recursive"      origami-close-node-recursively)]
+    ["Navigate"
+     ("p" "  Previous"             origami-previous-fold)
+     ("n" "  Next"                 origami-next-fold)
+     ("f" "  Forward"              origami-forward-fold)
+     ("C-f" "Forward same level"   origami-forward-fold-same-level)
+     ("C-b" "Backward same level"  origami-backward-fold-same-level)]
+    ["Toggle/Misc"
+     ("t" "  Toggle"               origami-toggle-node)
+     ("T" "  Toggle all"           origami-toggle-all-nodes)
+     ("r" "  Toggle recursive"     origami-recursively-toggle-node)
+     ("R" "  Forward toggle"       origami-forward-toggle-node)
+     ("u" "  Undo"                 origami-undo)
+     ("/" "  Redo"                 origami-redo)
+     ("q" "  Reset"                origami-reset)]])
 
   (magit
    (:packages (((name . "magit (MELPA)")
