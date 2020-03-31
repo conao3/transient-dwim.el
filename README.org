@@ -25,12 +25,32 @@
   - [[#special-thanks][Special Thanks]]
 
 * Description
+Using ~transient~ to display the preconfigured ~transient~
+dispatcher for your situation (major-mode or installed packages).
+
+By installing this package, if you want to know what features
+exist in major-mode for the first time, or if you want to use a
+package you can't remember keybindings for, pressing ~M-=~ (if
+you're using the recommended settings) will be your first step.
+
+You don't have to remember the cumbersome keybindings since
+now. Just look at the neatly aligned menu and press the key that
+appears.
 
 * Install
+#+begin_src emacs-lisp
+  (leaf transient-dwim
+    :ensure t
+    :bind ("M-=" . transient-dwim-dispatch))
+#+end_src
 
 * Usage
+Just press ~M-=~, or ~M-x transient-dwim-dispatch~.
 
 * Customize
+Customize transient menu by PR :)
+
+Or reference [[https://github.com/magit/transient/blob/master/docs/transient.org#modifying-existing-transients][transient manual]].
 
 * Information
 ** Community
