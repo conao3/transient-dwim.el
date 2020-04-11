@@ -59,6 +59,21 @@ appears.
 * Usage
 Just press ~M-=~, or ~M-x transient-dwim-dispatch~.
 
+Currently, transient menu for below major-mode/minor-mode are available.
+
+- Major-mode
+  - dired-mode (builtin)
+    - image-dired-thumbnail-mode (builtin)
+  - neotree-mode
+  - magit-mode
+- Minor-mode
+  - origami-mode
+- Packages
+  - magit ([[https://github.com/magit/magit][repo]])
+  - neotree ([[https://github.com/jaypei/emacs-neotree][repo]])
+  - dired-git ([[https://github.com/conao3/dired-git.el][repo]])
+  - origami ([[https://github.com/gregsexton/origami.el][repo]])
+
 * Customize
 Customize transient menu by PR :)
 

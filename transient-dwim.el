@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Naoya Yamashita
 
 ;; Author: Naoya Yamashita <conao3@gmail.com>
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; Keywords: tools
 ;; Package-Requires: ((emacs "26.1") (transient "0.1"))
 ;; URL: https://github.com/conao3/transient-dwim.el
@@ -259,9 +259,56 @@ The following %-sequences are supported:
      ("DEL" "Show image and prev"  image-dired-display-previous-thumbnail-original)
      ("c" "  Add comment"          image-dired-comment-thumbnail)]]
 
+   ["Neotree"
+    :if-derived neotree-mode
+    ["Commands"
+     ("RET" "  Open"               neotree-enter)
+     ("M-RET" "Open external"      neotree-open-file-in-system-application)
+     ("SPC" "  Quick Look"         neotree-quick-look)
+     ("o2" "   Open (Horizontal)"  neotree-enter-horizontal-split)
+     ("o3" "   Open (Vertical)"    neotree-enter-vertical-split)
+     ("o4" "   Open (Ace window)"  neotree-enter-ace-window)
+     ("k" "    Copy filepath"      neotree-copy-filepath-to-yank-ring)
+     ("P" "    Projectile"         neotree-projectile-action)]
+    ["Operations"
+     ;; ("" "Rename current node as another path." neo-buffer--rename-node)
+     ;; ("" "Copies current node as another path." neo-buffer--copy-node)
+     ;; ("c" "Create"              neotree-create-node)
+     ("R" "Rename"                 neotree-rename-node)
+     ("C" "Copy"                   neotree-copy-node)
+     ("D" "Delete"                 neotree-delete-node)
+     ;; ("" "Show (Toggle)"        neotree-toggle)
+     ;; ("" "Show"                 neotree-show)
+     ("q" "Close"                  neotree-hide)
+     ;; ("" "Select"               neo-global--select-window)
+     ("g" "Refresh"                neotree-refresh)
+     ;; ("" "Do auto refresh."     neo-global--do-autorefresh)
+     ]
+    ["Navigate"
+     ("n" "next"                   neotree-next-line)
+     ("p" "previous"               neotree-previous-line)
+     ("d" "down"                   neotree-select-down-node)
+     ;; ("" "Previous same level"  neotree-select-previous-sibling-node)
+     ;; ("" "Next same level"      neotree-select-next-sibling-node)
+
+     ;; ("" "Select Current buffer"neotree-find)
+     ("/" "cd"                     neotree-change-root)
+     ("^" "cd parent"              neotree-select-up-node)
+     ;; ("" "Show and change root" neotree-dir)
+     ("%" "Collapse"               neotree-collapse-all)]
+    ["Toggle"
+     ("A" "Stretch"                neotree-stretch-toggle)
+     ("." "Hidden files"           neotree-hidden-file-toggle)]
+    ["Misc"
+     ;; ("" "Return list of unsaved buffers from projectile buffers." neo-get-unsaved-buffers-from-projectile)
+     ;; ("" "Define the behaviors for keyboard event." neo-buffer--execute)
+     ;; ("" "Toggle the variable neo-click-changes-root." neotree-click-changes-root-toggle)
+     ]]
+
    ["Extension"
     [("M-=" "Magit"                transient-dwim-magit :if (lambda () (require 'magit nil t)))
-     ("M-o" "Origami"              transient-dwim-origami :if (lambda () (require 'origami nil t)))]])
+     ("M-o" "Origami"              transient-dwim-origami :if (lambda () (require 'origami nil t)))
+     ("M-N" "Neotree"              transient-dwim-neotree :if (lambda () (require 'neotree nil t)))]])
 
   (dired-mode--image
    (:packages (((name . "image-dired (builtin)"))))
@@ -330,6 +377,55 @@ The following %-sequences are supported:
      ("u" "  Undo"                 origami-undo)
      ("/" "  Redo"                 origami-redo)
      ("q" "  Reset"                origami-reset)]])
+
+  (neotree
+   (:packages (((name . "neotree (MELPA)")
+                (url  . "https://github.com/jaypei/emacs-neotree"))))
+   [["Commands"
+     ;; ("RET" "  Open"               neotree-enter)
+     ;; ("M-RET" "Open external"      neotree-open-file-in-system-application)
+     ;; ("SPC" "  Quick Look"         neotree-quick-look)
+     ;; ("o2" "   Open (Horizontal)"  neotree-enter-horizontal-split)
+     ;; ("o3" "   Open (Vertical)"    neotree-enter-vertical-split)
+     ;; ("o4" "   Open (Ace window)"  neotree-enter-ace-window)
+     ;; ("k" "    Copy filepath"      neotree-copy-filepath-to-yank-ring)
+     ;; ("P" "    Projectile"         neotree-projectile-action)
+     ]
+    ["Operations"
+     ;; ("" "Rename current node as another path." neo-buffer--rename-node)
+     ;; ("" "Copies current node as another path." neo-buffer--copy-node)
+     ;; ("c" "Create"              neotree-create-node)
+     ;; ("R" "Rename"              neotree-rename-node)
+     ;; ("C" "Copy"                neotree-copy-node)
+     ;; ("D" "Delete"              neotree-delete-node)
+     ("s" "Show"                   neotree-show)
+     ("q" "Close"                  neotree-hide)
+     ;; ("" "Select"               neo-global--select-window)
+     ("g" "Refresh"                neotree-refresh)
+     ;; ("" "Do auto refresh."     neo-global--do-autorefresh)
+     ]
+    ["Navigate"
+     ;; ("n" "next"                neotree-next-line)
+     ;; ("p" "previous"            neotree-previous-line)
+     ;; ("d" "down"                neotree-select-down-node)
+     ;; ("" "Previous same level"  neotree-select-previous-sibling-node)
+     ;; ("" "Next same level"      neotree-select-next-sibling-node)
+
+     ;; ("" "Select Current buffer"neotree-find)
+     ;; ("/" "cd"                  neotree-change-root)
+     ;; ("^" "cd parent"           neotree-select-up-node)
+     ;; ("" "Show and change root" neotree-dir)
+     ;; ("%" "Collapse"            neotree-collapse-all)
+     ]
+    ["Toggle"
+     ("t" "Show"                   neotree-toggle)
+     ("A" "Stretch"                neotree-stretch-toggle)
+     ("." "Hidden files"           neotree-hidden-file-toggle)]
+    ["Misc"
+     ;; ("" "Return list of unsaved buffers from projectile buffers." neo-get-unsaved-buffers-from-projectile)
+     ;; ("" "Define the behaviors for keyboard event." neo-buffer--execute)
+     ;; ("" "Toggle the variable neo-click-changes-root." neotree-click-changes-root-toggle)
+     ]])
 
   (magit
    (:packages (((name . "magit (MELPA)")
