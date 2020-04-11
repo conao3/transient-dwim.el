@@ -16,6 +16,7 @@
 - [[#customize][Customize]]
 - [[#syntaxes][Syntaxes]]
 - [[#information][Information]]
+  - [[#create-new-transient-menu][Create new transient menu]]
   - [[#community][Community]]
   - [[#contribution][Contribution]]
   - [[#migration][Migration]]
@@ -65,6 +66,43 @@ Customize transient menu by PR :)
 Or reference [[https://github.com/magit/transient/blob/master/docs/transient.org#modifying-existing-transients][transient manual]].
 
 * Information
+** Create new transient menu
+Create interaction function list via below code, and bind appropriate key.
+
+#+begin_src emacs-lisp
+  (ppp-list
+   (cl-flet ((get-summary (str) (replace-regexp-in-string "\\(.*\\)\n.*" "\\1" str)))
+     (let (elm info)
+       (with-current-buffer "neotree.el"  ; some target package
+         (save-excursion
+           (goto-char (point-min))
+           (while (setq elm (ignore-errors (read (current-buffer))))
+             (pcase elm
+               (`(,(or 'defun 'cl-defun) ,fn ,args (interactive) . ,body)
+                (push `(,fn . "") info))
+               (`(,(or 'defun 'cl-defun) ,fn ,args (interactive . ,_) . ,body)
+                (push `(,fn . "") info))
+               (`(,(or 'defun 'cl-defun) ,fn ,args ,docstring (interactive) . ,body)
+                (push `(,fn . ,(get-summary docstring)) info))
+               (`(,(or 'defun 'cl-defun) ,fn ,args ,docstring (interactive . ,_) . ,body)
+                (push `(,fn . ,(get-summary docstring)) info))))))
+       (mapcar (lambda (elm) `("" ,(cdr elm) ,(car elm))) (nreverse info)))))
+#+end_src
+
+Recommend make ~transient-detect-key-conflicts~ non-nil to detect key conflicts easy.
+
+#+begin_src emacs-lisp
+  (leaf transient
+    :doc "Transient commands"
+    :req "emacs-25.1"
+    :tag "bindings" "emacs>=25.1"
+    :url "https://github.com/magit/transient"
+    :added "2020-03-25"
+    :emacs>= 25.1
+    :ensure t
+    :custom ((transient-detect-key-conflicts . t)))
+#+end_src
+
 ** Community
 All feedback and suggestions are welcome!
 
