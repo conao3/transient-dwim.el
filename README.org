@@ -23,7 +23,6 @@
   - [[#license][License]]
   - [[#author][Author]]
   - [[#contributors][Contributors]]
-  - [[#special-thanks][Special Thanks]]
 
 * Description
 Using ~transient~ to display the preconfigured ~transient~
