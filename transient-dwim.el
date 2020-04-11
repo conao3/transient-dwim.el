@@ -29,8 +29,7 @@
 ;; By installing this package, if you want to know what features
 ;; exist in major-mode for the first time, or if you want to use
 ;; a package you can't remember keybindings for, pressing M-= (if
-;; you're using the recommended settings) will be your first
-;; step.
+;; you're using the recommended settings) will be your first step.
 
 ;; You don't have to remember the cumbersome keybindings since
 ;; now.  Just look at the neatly aligned menu and press the key
