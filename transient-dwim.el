@@ -55,21 +55,13 @@
 
 ;;; Functions
 
-(defmacro transient-dwim--declare-function (spec)
-  "Declare function for SPEC."
-  `(progn
-     ,@(mapcan
-        (lambda (elm)
-          (seq-let (pkg fns) elm
-            (mapcar
-             (lambda (elm*)
-               `(declare-function ,elm* ,(symbol-name pkg)))
-             fns)))
-        spec)))
-
-(transient-dwim--declare-function
- ((magit
-   (magit-commit-create magit-commit-amend magit-commit-extend))))
+(declare-function magit-get "magit")
+(declare-function magit-remote-p "magit")
+(declare-function magit-commit-create "magit")
+(declare-function magit-commit-amend "magit")
+(declare-function magit-commit-extend "magit")
+(declare-function magit-branch-and-checkout "magit")
+(declare-function magit-get-current-branch "magit")
 
 ;;; Magit
 (defun transient-dwim-magit-commit-all ()
