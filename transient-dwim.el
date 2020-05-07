@@ -306,8 +306,9 @@ The following %-sequences are supported:
      ]]
 
    ["Extension"
-    [("M-=" "Magit"                transient-dwim-magit :if (lambda () (require 'magit nil t)))
-     ("M-o" "Origami"              transient-dwim-origami :if (lambda () (require 'origami nil t)))
+    [("M-=" "Magit"                transient-dwim-magit   :if (lambda () (require 'magit nil t)))
+     ("M-o" "Org"                  transient-dwim-org     :if (lambda () (require 'org nil t)))
+     ("M-O" "Origami"              transient-dwim-origami :if (lambda () (require 'origami nil t)))
      ("M-N" "Neotree"              transient-dwim-neotree :if (lambda () (require 'neotree nil t)))]])
 
   (dired-mode--image
@@ -377,6 +378,13 @@ The following %-sequences are supported:
      ("u" "  Undo"                 origami-undo)
      ("/" "  Redo"                 origami-redo)
      ("q" "  Reset"                origami-reset)]])
+
+  (org
+   (:pakcages (((name . "org (builtin)")
+                (url  . "https://orgmode.org/"))))
+   [["Commands"
+     ("M-o" "capture"              org-capture)
+     ("M-a" "agenda"               org-agenda)]])
 
   (neotree
    (:packages (((name . "neotree (MELPA)")
