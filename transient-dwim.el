@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Naoya Yamashita
 
 ;; Author: Naoya Yamashita <conao3@gmail.com>
-;; Version: 1.0.3
+;; Version: 1.0.4
 ;; Keywords: tools
 ;; Package-Requires: ((emacs "26.1") (transient "0.1"))
 ;; URL: https://github.com/conao3/transient-dwim.el
@@ -365,7 +365,8 @@ The following %-sequences are supported:
    [["System"
      ("i"   "Install"              oj-install-packages)
      ("s"   "Open shell"           oj-open-shell)
-     ("l"   "Login"                oj-login)]
+     ("l"   "Login"                oj-login)
+     ("o"   "Open home dir"        oj-open-home-dir)]
     ["Commands"
      ("r"   "Prepare"              oj-prepare)
      ("t"   "Test"                 oj-test)
