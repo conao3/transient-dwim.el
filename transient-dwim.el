@@ -368,9 +368,9 @@ The following %-sequences are supported:
      ("l"   "Login"                oj-login)
      ("o"   "Open home dir"        oj-open-home-dir)]
     ["Commands"
-     ("r"   "Prepare"              oj-prepare)
-     ("t"   "Test"                 oj-test)
-     ("S"   "Submit"               oj-submit)]
+     ("r" "  Prepare"              oj-prepare)
+     ("M-a" "Test"                 oj-test)
+     ("S" "  Submit"               oj-submit)]
     ["Navigate"
      ("n"   "Next"                 oj-next)
      ("p"   "Prev"                 oj-prev)]])
