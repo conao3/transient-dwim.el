@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Naoya Yamashita
 
 ;; Author: Naoya Yamashita <conao3@gmail.com>
-;; Version: 1.0.1
+;; Version: 1.0.2
 ;; Keywords: tools
 ;; Package-Requires: ((emacs "26.1") (transient "0.1"))
 ;; URL: https://github.com/conao3/transient-dwim.el
