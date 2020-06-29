@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Naoya Yamashita
 
 ;; Author: Naoya Yamashita <conao3@gmail.com>
-;; Version: 1.0.1
+;; Version: 1.0.2
 ;; Keywords: tools
 ;; Package-Requires: ((emacs "26.1") (transient "0.1"))
 ;; URL: https://github.com/conao3/transient-dwim.el
@@ -307,6 +307,7 @@ The following %-sequences are supported:
 
    ["Extension"
     [("M-=" "Magit"                transient-dwim-magit   :if (lambda () (require 'magit nil t)))
+     ("M-a" "Oj"                   transient-dwim-oj      :if (lambda () (require 'oj nil t)))
      ("M-o" "Org"                  transient-dwim-org     :if (lambda () (require 'org nil t)))
      ("M-O" "Origami"              transient-dwim-origami :if (lambda () (require 'origami nil t)))
      ("M-N" "Neotree"              transient-dwim-neotree :if (lambda () (require 'neotree nil t)))]])
@@ -351,6 +352,21 @@ The following %-sequences are supported:
     ("d"    "Decrypt"              epa-dired-do-decrypt)
     ("v"    "Verify"               epa-dired-do-verify)
     ("s"    "Sign"                 epa-dired-do-sign)])
+
+  (oj
+   (:packages (((name . "oj (MELPA)")
+                (url  . "https://github.com/conao3/oj.el"))))
+   [["System"
+     ("i"   "Install"              oj-install-packages)
+     ("s"   "Open shell"           oj-open-shell)
+     ("l"   "Login"                oj-login)]
+    ["Commands"
+     ("r"   "Prepare"              oj-prepare)
+     ("t"   "Test"                 oj-test)
+     ("S"   "Submit"               oj-submit)]
+    ["Navigate"
+     ("n"   "Next"                 oj-next)
+     ("p"   "Prev"                 oj-prev)]])
 
   (origami
    (:packages (((name . "origami (MELPA)")
