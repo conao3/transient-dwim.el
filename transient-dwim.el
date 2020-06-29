@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Naoya Yamashita
 
 ;; Author: Naoya Yamashita <conao3@gmail.com>
-;; Version: 1.0.4
+;; Version: 1.0.5
 ;; Keywords: tools
 ;; Package-Requires: ((emacs "26.1") (transient "0.1"))
 ;; URL: https://github.com/conao3/transient-dwim.el
@@ -368,9 +368,9 @@ The following %-sequences are supported:
      ("l"   "Login"                oj-login)
      ("o"   "Open home dir"        oj-open-home-dir)]
     ["Commands"
-     ("r"   "Prepare"              oj-prepare)
-     ("t"   "Test"                 oj-test)
-     ("S"   "Submit"               oj-submit)]
+     ("r" "  Prepare"              oj-prepare)
+     ("M-a" "Test"                 oj-test)
+     ("S" "  Submit"               oj-submit)]
     ["Navigate"
      ("n"   "Next"                 oj-next)
      ("p"   "Prev"                 oj-prev)]])
