@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Naoya Yamashita
 
 ;; Author: Naoya Yamashita <conao3@gmail.com>
-;; Version: 1.0.2
+;; Version: 1.0.3
 ;; Keywords: tools
 ;; Package-Requires: ((emacs "26.1") (transient "0.1"))
 ;; URL: https://github.com/conao3/transient-dwim.el
@@ -96,6 +96,12 @@ If feature branch doesn't exist, create and checkout it."
                     ,(format "git push %s" (shell-quote-argument username))
                     "hub pull-request &")
                   " && ")))))
+
+(defun transient-dwim-magit-merge-remote-master ()
+  "Checkout master and fetch, merge remote master."
+  (interactive)
+  (magit-checkout "master")
+  (magit-pull-from-upstream nil))
 
 
 ;;; Main
@@ -475,11 +481,12 @@ The following %-sequences are supported:
      ("A" "  Amend -a"             transient-dwim-magit-amend-all)
      ("w" "  Reword"               magit-commit-reword)]
     ["Misc"
-     ("U"   "Fixup"                magit-commit-instant-fixup)
-     ("S"   "Squash"               magit-commit-instant-squash)
-     ("s"   "Status"               magit-status)
-     ("("   "Checkout feature"     transient-dwim-magit-feature-checkout)
-     (")"   "PR feature"           transient-dwim-magit-feature-pull-request)]
+     ("U" "  Fixup"                magit-commit-instant-fixup)
+     ("S" "  Squash"               magit-commit-instant-squash)
+     ("s" "  Status"               magit-status)
+     ("(" "  Checkout feature"     transient-dwim-magit-feature-checkout)
+     (")" "  PR feature"           transient-dwim-magit-feature-pull-request)
+     ("M-P" "Checkout/Pull master" transient-dwim-magit-merge-remote-master)]
     ["Magit dispatch"
      ;; ("A" "Apply"               magit-cherry-pick)
      ("b"   "Branch"               magit-branch)
