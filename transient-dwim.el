@@ -365,7 +365,8 @@ The following %-sequences are supported:
    [["System"
      ("i"   "Install"              oj-install-packages)
      ("s"   "Open shell"           oj-open-shell)
-     ("l"   "Login"                oj-login)]
+     ("l"   "Login"                oj-login)
+     ("o"   "Open home dir"        oj-open-home-dir)]
     ["Commands"
      ("r"   "Prepare"              oj-prepare)
      ("t"   "Test"                 oj-test)
