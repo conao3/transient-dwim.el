@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Naoya Yamashita
 
 ;; Author: Naoya Yamashita <conao3@gmail.com>
-;; Version: 1.0.5
+;; Version: 1.0.6
 ;; Keywords: tools
 ;; Package-Requires: ((emacs "26.1") (transient "0.1"))
 ;; URL: https://github.com/conao3/transient-dwim.el
@@ -309,6 +309,64 @@ The following %-sequences are supported:
      ;; ("" "Return list of unsaved buffers from projectile buffers." neo-get-unsaved-buffers-from-projectile)
      ;; ("" "Define the behaviors for keyboard event." neo-buffer--execute)
      ;; ("" "Toggle the variable neo-click-changes-root." neotree-click-changes-root-toggle)
+     ]]
+
+   ["EIN list"
+    :if-derived ein:notebooklist-mode
+    [("g" "Refresh list"           ein:notebooklist-reload)
+     ("n" "New notebook"           ein:notebooklist-new-notebook-with-name)
+     ("/" "New scratch notebook"   ein:notebooklist-new-notebook)
+     ("l" "Login"                  ein:notebooklist-login)]]
+
+   ["EIN"
+    :if (lambda () ein:notebook-mode)
+    ["File"
+     ("#" "Close"                  ein:notebook-close)
+     ("o" "Open"                   ein:notebook-open)
+     ("s" "Save"                   ein:notebook-save-notebook-command)
+     ("S" "Save as"                ein:notebook-save-to-command)
+     ("w" "Rename"                 ein:notebook-rename-command)
+     ("/" "Open Scratch"           ein:notebook-scratchsheet-open)
+     ("j" "Jump"                   ein:notebook-jump-to-opened-notebook)]
+    ["Cell"
+     ("RET" "    Execute cell"     ein:worksheet-execute-cell)
+     ("M-RET" "  Execute/move"     ein:worksheet-execute-cell-and-goto-next)
+     ("M-S-RET" "Execute/insert"   ein:worksheet-execute-cell-and-insert-below)
+     ("A" "      Execute all"      ein:worksheet-execute-all-cells)
+     ("<" "      Execute all above" ein:worksheet-execute-all-cells-above)
+     (">" "      Execute all below" ein:worksheet-execute-all-cells-below)
+     ("h" "      Hide/Unhide"      ein:worksheet-toggle-output)
+     ("H" "      Unhide all"       ein:worksheet-set-output-visibility-all)
+     ("c" "      Clear output"     ein:worksheet-clear-output)
+     ("C" "      Clear output all" ein:worksheet-clear-all-output)]
+    [("k" "Kill"                   ein:worksheet-kill-cell)
+     ("K" "Copy"                   ein:worksheet-copy-cell)
+     ("y" "Yank"                   ein:worksheet-yank-cell)
+     ("a" "Insert above"           ein:worksheet-insert-cell-above)
+     ("b" "Insert below"           ein:worksheet-insert-cell-below)
+     ("t" "Toggle type"            ein:worksheet-toggle-cell-type)
+     ("u" "Change type"            ein:worksheet-change-cell-type)
+     ("-" "Split"                  ein:worksheet-split-cell-at-point)
+     ("m" "Merge"                  ein:worksheet-merge-cell)]
+    ["Navigate"
+     ("n" "Next"                   ein:worksheet-goto-next-input)
+     ("p" "Prev"                   ein:worksheet-goto-prev-input)
+     ("N" "Next input"             ein:worksheet-goto-next-input)
+     ("P" "Prev input"             ein:worksheet-goto-prev-input)
+     ("M-<up>" "  Move above"      ein:worksheet-move-cell-up)
+     ("M-<down>" "Move below"      ein:worksheet-move-cell-down)]
+    ["Kernel"
+     ("R" "Restart"                ein:notebook-restart-session-command)
+     ("r" "Reconnect"              ein:notebook-reconnect-session-command)
+     ("z" "Interrupt"              ein:notebook-kernel-interrupt-command)
+     ("q" "Kill kernel"            ein:notebook-kill-kernel-then-close-command)
+     ("*" "Change kernel"          ein:notebook-switch-kernel)]
+    ["misc"
+     ("$" "Show traceback"         ein:tb-show)
+     ("f" "Open file"              ein:file-open)
+     ("." "Jump definition"        ein:pytools-jump-to-source-command)
+     ("," "Jump back"              ein:pytools-jump-back-command)
+     ;; (";" "Exec cell/Show results in another buffer" ein:shared-output-show-code-cell-at-point)
      ]]
 
    ["Extension"
