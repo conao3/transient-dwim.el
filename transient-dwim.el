@@ -319,7 +319,7 @@ The following %-sequences are supported:
      ("l" "Login"                  ein:notebooklist-login)]]
 
    ["EIN"
-    :if (lambda () ein:notebook-mode)
+    :if (lambda () (bound-and-true-p ein:notebook-mode))
     ["File"
      ("#" "Close"                  ein:notebook-close)
      ("o" "Open"                   ein:notebook-open)
