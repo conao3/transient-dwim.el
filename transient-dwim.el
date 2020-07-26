@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Naoya Yamashita
 
 ;; Author: Naoya Yamashita <conao3@gmail.com>
-;; Version: 1.0.6
+;; Version: 1.0.7
 ;; Keywords: tools
 ;; Package-Requires: ((emacs "26.1") (transient "0.1"))
 ;; URL: https://github.com/conao3/transient-dwim.el
@@ -319,7 +319,7 @@ The following %-sequences are supported:
      ("l" "Login"                  ein:notebooklist-login)]]
 
    ["EIN"
-    :if (lambda () ein:notebook-mode)
+    :if (lambda () (bound-and-true-p ein:notebook-mode))
     ["File"
      ("#" "Close"                  ein:notebook-close)
      ("o" "Open"                   ein:notebook-open)
