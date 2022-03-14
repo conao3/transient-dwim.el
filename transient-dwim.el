@@ -157,7 +157,7 @@ The following %-sequences are supported:
           (let ((pkg  (pop elm))
                 (info (pop elm))
                 (args elm))
-            `(define-transient-command ,(intern (format "transient-dwim-%s" pkg)) ()
+            `(transient-define-prefix ,(intern (format "transient-dwim-%s" pkg)) ()
                ,(transient-dwim--create-docstring pkg info)
                ,@args)))
         spec)))
