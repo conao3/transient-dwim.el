@@ -135,7 +135,7 @@ The following %-sequences are supported:
             (dep-pkgs-url  (mapcar (lambda (elm) (alist-get 'url elm)) dep-pkgs-info)))
         (format-spec
          docstringspec
-         `((?p . ,pkg)
+         `((?p . ,(symbol-name pkg))
            (?P . ,(if dep-pkgs-info
                       (cl-loop for elm in dep-pkgs-name
                                for i from 1
