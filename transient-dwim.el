@@ -5,7 +5,7 @@
 ;; Author: Naoya Yamashita <conao3@gmail.com>
 ;; Version: 1.0.9
 ;; Keywords: tools
-;; Package-Requires: ((emacs "28.1") (transient "0.1"))
+;; Package-Requires: ((emacs "28.1") (transient "0.13.3"))
 ;; URL: https://github.com/conao3/transient-dwim.el
 
 ;; This program is free software: you can redistribute it and/or modify
